@@ -20,7 +20,7 @@ WORKDIR /app
 USER node
 # install pnpm
 RUN curl https://get.pnpm.io/install.sh | env PNPM_VERSION=8.6.0 sh -
-# install node dependencies
+# install app dependencies
 COPY --chown=node:server pnpm-lock.yaml ./
 RUN pnpm fetch --prod
 RUN pnpm install -r --offline --prod
