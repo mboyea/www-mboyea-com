@@ -20,7 +20,7 @@ WORKDIR /app
 USER node
 # install pnpm
 RUN curl https://get.pnpm.io/install.sh | env PNPM_VERSION=8.6.0 sh -
-# install node dependencies
+# install app dependencies
 COPY --chown=node:server pnpm-lock.yaml ./
 RUN pnpm fetch --prod
 RUN pnpm install -r --offline --prod
@@ -28,5 +28,7 @@ RUN pnpm install -r --offline --prod
 COPY --chown=node:server build build
 COPY --chown=node:server package.json ./
 # start server
+ENV HOST 0.0.0.0
+ENV PORT 8080
 EXPOSE 8080
-ENTRYPOINT ["/usr/local/bin/node", "./build/server/index.js"]
+ENTRYPOINT ["/usr/local/bin/node", "./build"]

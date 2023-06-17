@@ -1,35 +1,34 @@
 www.mboyea.com
 ===
-A portfolio website built to host articles, games, and tools built by Matthew Boyea
+A portfolio website to host articles, games, and tools built by Matthew Boyea.
 ---
-This website is built with [SvelteKit] to create a html/css/js application delivered by a [Node.js] server. [Docker] is used to deploy the app within a minified [Ubuntu] environment. [pnpm] manages all dependent packages. The Docker container is currently hosted by [Fly.io] for the completed website.
+This website is built with [SvelteKit], [Typescript], & [Sass] to compile a html/css/js application delivered by a [Node.js] server. [Docker] is used to deploy the app within a minified [Ubuntu] environment. [PNPM] manages all dependent packages. [Fly.io] hosts the Docker deployment to serve the completed website.
 
 ### Develop
-* [Install pnpm].
+* [Install PNPM].
 * Fork this repository.
 * Clone this repository to your computer.
 * Open a terminal in the root directory of the cloned repository.
 * Run `pnpm i` in the terminal to install all dependencies.
 
-From here, you're ready to devlelop your project. You can run the following scripts in the terminal to work locally with the project.
+From here, you're ready to develop the project. You can run the following scripts in the terminal to work locally with the project.
 
 ### Scripts
-To run a script, type `pnpm run <script-name>` into the terminal within the root folder.
+To run a script, type `pnpm run <script-name>` into a terminal within the root folder.
 
 | script-name | description |
 |:----------- |:----------- |
 | `dev` | create a local hot-reloading server at [localhost:5173](http://localhost:5173) for development purposes |
 | `build` | compile a production version of the app into the build folder |
-| `preview` | create a local server which serves the contents of the build folder |
-| `check` | get evaluation of project syntax from sveltekit |
-| `check:watch` | run `check` and provide updates when files are saved |
-
-To edit commands, see "scripts" in package.json
+| `preview` | create a local server which serves the contents of the build folder at [localhost:5173](http://localhost:4173) |
+| `check` | evaluate Svelte syntax |
+| `check:watch` | re-evaluate Svelte syntax when files are updated |
 
 ### Deploy
-To deploy this app, create a Docker Image from the Dockerfile and deploy it to your hosting provider of choice.
-
-This app is set up to use [Fly.io] to create the Docker Image and deploy the Container to the cloud. To deploy with [Fly.io], first make sure to [install flyctl]. Then run `flyctl deploy`. If there is no existing app to deploy to, instead run `flyctl launch` and follow the instructions.
+This app is set up to use [Fly.io] to deploy a Docker container. To deploy with Fly:
+* [Install flyctl].
+* Run `flyctl deploy`.
+* If there is no existing app to deploy to, instead run `flyctl launch`.
 
 ### Contribute
 Unfortunately, this project doesn't support community contributions right now.
@@ -38,7 +37,7 @@ Unfortunately, this project doesn't support community contributions right now.
 [Node.js]: https://nodejs.org/en/docs/guides/getting-started-guide
 [Docker]: https://docs.docker.com/get-started/overview/
 [Ubuntu]: https://ubuntu.com/about
-[pnpm]: https://pnpm.io/motivation
+[PNPM]: https://pnpm.io/motivation
+[Install PNPM]: https://pnpm.io/installation
 [Fly.io]: https://fly.io/docs/
-[Install pnpm]: https://pnpm.io/installation
-[install flyctl]: https://fly.io/docs/hands-on/install-flyctl/
+[Install flyctl]: https://fly.io/docs/hands-on/install-flyctl/
