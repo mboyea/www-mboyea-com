@@ -28,5 +28,7 @@ RUN pnpm install -r --offline --prod
 COPY --chown=node:server build build
 COPY --chown=node:server package.json ./
 # start server
+ENV HOST 0.0.0.0
+ENV PORT 8080
 EXPOSE 8080
-ENTRYPOINT ["/usr/local/bin/node", "./build/server/index.js"]
+ENTRYPOINT ["/usr/local/bin/node", "./build"]
