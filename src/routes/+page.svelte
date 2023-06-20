@@ -1,2 +1,2 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<h1>I'm Matthew Boyea</h1>
+<p>I practice mixed martial arts, fishing, reading, bodybuilding, cooking, running, gymnastics, automotive mechanics, studying (psychology, philosophy, sociology), photography, videography, writing, game development, and software engineering.</p>

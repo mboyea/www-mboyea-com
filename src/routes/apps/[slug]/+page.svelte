@@ -3,5 +3,5 @@
 	export let data: PageData;
 </script>
 
-<h1>Article [{data.slug}]</h1>
+<h1>App [{data.slug}]</h1>
 <p>Aa about [{data.slug}].</p>
