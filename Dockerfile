@@ -19,7 +19,7 @@ FROM base AS prod
 WORKDIR /app
 USER node
 # install pnpm
-RUN curl https://get.pnpm.io/install.sh | env PNPM_VERSION=8.6.0 sh -
+RUN curl https://get.pnpm.io/install.sh | env PNPM_VERSION=8.6.2 sh -
 # install app dependencies
 COPY --chown=node:server pnpm-lock.yaml ./
 RUN pnpm fetch --prod
