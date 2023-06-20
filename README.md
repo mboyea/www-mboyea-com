@@ -7,7 +7,7 @@ This website is built with [SvelteKit], [Typescript], & [Sass] to compile a html
 ### Develop
 * [Install PNPM].
 * Fork this repository.
-* Clone this repository to your computer.
+* Clone that repository to your computer.
 * Open a terminal in the root directory of the cloned repository.
 * Run `pnpm i` in the terminal to install all dependencies.
 
@@ -20,7 +20,7 @@ To run a script, type `pnpm run <script-name>` into a terminal within the root f
 |:----------- |:----------- |
 | `dev` | create a local hot-reloading server at [localhost:5173](http://localhost:5173) for development purposes |
 | `build` | compile a production version of the app into the build folder |
-| `preview` | create a local server which serves the contents of the build folder at [localhost:5173](http://localhost:4173) |
+| `preview` | create a local server which serves the contents of the build folder at [localhost:4173](http://localhost:4173) |
 | `check` | evaluate Svelte syntax |
 | `check:watch` | re-evaluate Svelte syntax when files are updated |
 
