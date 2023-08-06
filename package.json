@@ -7,6 +7,9 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
+		"deploy": "pnpm i && pnpm run build && pnpm run deploy:secrets && pnpm run deploy:app",
+		"deploy:secrets": "bash scripts/stage_secrets.sh",
+		"deploy:app": "flyctl deploy -a www-mboyea-com",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
