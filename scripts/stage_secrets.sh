@@ -3,8 +3,13 @@
 # gather env secrets for flyctl
 flyctl_env_vars=("$@")
 while IFS= read -r input_line || [[ -n "$input_line" ]]; do
+	# prevent overlapping writes to array (don't know why this happens)
 	input_line=$(echo $input_line)
-	# remove quotes from flyctl env (until https://github.com/superfly/flyctl/issues/589 is resolved)
+	# ignore comments
+	if [[ "$input_line" == '#'* ]]; then
+		continue
+	fi
+	# remove quotes (until https://github.com/superfly/flyctl/issues/589 is resolved)
 	flyctl_env_vars+=$(echo "$input_line " | tr -d '"')
 done < .env
 

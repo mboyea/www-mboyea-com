@@ -15,18 +15,17 @@ RUN groupadd --gid 1000 server \
 
 # create prod environment
 FROM base AS prod
-# move to app directory as user node
+# move to app directory, then set user as node
 WORKDIR /app
 USER node
 # install pnpm
 RUN curl https://get.pnpm.io/install.sh | env PNPM_VERSION=8.6.2 sh -
 # install app dependencies
-COPY --chown=node:server pnpm-lock.yaml ./
-RUN pnpm fetch --prod
-RUN pnpm install -r --offline --prod
+COPY pnpm-lock.yaml package.json ./
+RUN pnpm install --prod
 # copy app files
-COPY --chown=node:server build build
-COPY --chown=node:server package.json ./
+COPY build build
+COPY package.json ./
 # start server
 ENV HOST 0.0.0.0
 ENV PORT 8080
