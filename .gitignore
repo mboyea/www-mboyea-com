@@ -1,12 +1,9 @@
-z-private-dev-notes.txt
-.DS_Store
-node_modules
-pnpm-lock.yaml
-/build
 /.svelte-kit
-/package
+/build
+/node_modules
 .env
 .env.*
-!.env.example
+.DS_Store
+pnpm-lock.yaml
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
