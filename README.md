@@ -10,10 +10,12 @@ This website is built with [SvelteKit], [Typescript], & [Sass] to compile a html
 
 ### Install Dependencies
 * Fork & Clone This Repository.
+* [Install NPM].
 * [Install PNPM].
 * [Install flyctl] for deployments.
 * [Install Git Bash] for deployment scripts & Github commits.
 * [Install psql] for remote SQL deployment.
+* Ensure each of the above command line tools are accessible by PATH.
 * Open a terminal in the root folder.
 * Run `pnpm i` in the terminal to install all app dependencies.
 
@@ -40,11 +42,12 @@ Some features of this app require secret database credentials. These secrets can
 * Create a file named `.env` in the root directory.
 * Copy the secrets into the `.env` file.
 
-### Deploy App
+### Deploy
 * Install Dependencies.
 * Create Secrets.
 * Open a terminal in the root folder.
 * Run `pnpm run deploy`.
+* If postgres access is denied: check .env password; check port 5432 is free (use `netstat -ano | findstr :5432`)
 
 ### Contribute
 Unfortunately, this project doesn't support community contributions right now.
@@ -56,6 +59,7 @@ Unfortunately, this project doesn't support community contributions right now.
 [Docker]: https://docs.docker.com/get-started/overview/
 [Ubuntu]: https://ubuntu.com/about
 [PNPM]: https://pnpm.io/motivation
+[Install NPM]: https://nodejs.org/en/download
 [Install PNPM]: https://pnpm.io/installation
 [Install flyctl]: https://fly.io/docs/hands-on/install-flyctl/
 [Install Git Bash]: https://git-scm.com/downloads

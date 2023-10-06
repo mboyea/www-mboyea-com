@@ -1,0 +1,3 @@
+https://www.keycloak.org/server/containers
+https://www.keycloak.org/getting-started/getting-started-zip
+https://medium.com/weekly-webtips/step-by-step-guide-to-setup-keycloak-on-local-machine-5abe8c89566
