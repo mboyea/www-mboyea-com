@@ -1,4 +1,4 @@
-# ignore everything
+# ignore everything by default
 *
 # allow
 !/build
