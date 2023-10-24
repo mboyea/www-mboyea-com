@@ -1,0 +1,69 @@
+/* DEFAULT STYLES FOR layout.svelte */
+:root {
+	--default-background-color: #222222;
+	--default-text-color: #eeeeee;
+	--default-link-color: #eeeeee;
+	--default-link-hover-color: #eeeeee;
+	--default-link-click-color: #eeeeee;
+	--default-font: Verdana, sans-serif;
+
+	--header-background-color: #111111;
+	--footer-background-color: #111111;
+	--article-background-color: #333333;
+
+	--brand-font: Georgia, 'Times New Roman', Times, serif;
+	--brand-color: #33b333;
+}
+* {
+  box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	font-family: var(--default-font);
+	color: var(--default-text-color);
+}
+html, body {
+	height: 100%;
+}
+body {
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
+	background-color: var(--default-background-color);
+}
+ul {
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+	padding-inline-start: 40px;
+}
+#featured-img, .background-img {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	background-image: url('$imgs/default-background.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	text-align: center;
+}
+p {
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+}
+h1 {
+	font-family: var(--brand-font);
+	margin-block-start: .67em;
+	margin-block-end: .67em;
+}
+h2 {
+}
+h3 {
+}
+h4 {
+}
+h5 {
+}
+h6 {
+}

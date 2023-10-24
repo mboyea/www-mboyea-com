@@ -1,0 +1,3 @@
+http://callbackhell.com/
+https://vuejs.org/style-guide/
+https://semver.org/
