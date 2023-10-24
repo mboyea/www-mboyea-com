@@ -3,11 +3,12 @@
 
 <style lang="scss">
 	#featured-img {
-		padding: 9em 0 2em 0;
 		margin: 0;
-		background-image: url('$imgs/homepage-background.jpg');
-		filter: brightness(70%) contrast(120%);
-		color: white;
+		padding: 15vw 0 20vw 0;
 		text-shadow: 3px 3px 5px black;
+		font-size: 4vw;
+		&:before {
+			background-image: url('$imgs/homepage-background.jpg');
+		}
 	}
 </style>
