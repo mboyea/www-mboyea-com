@@ -1,4 +1,5 @@
 <h1 id="featured-img">I'm Matthew Boyea.</h1>
+<p>TODO: /home styles</p>
 <p>I practice mixed martial arts, fishing, reading, bodybuilding, cooking, running, gymnastics, automotive mechanics, studying (psychology, philosophy, sociology), photography, videography, writing, game development, and software engineering.</p>
 
 <style lang="scss">
