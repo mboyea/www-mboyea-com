@@ -7,7 +7,7 @@ set -a; source .env; set +a
 flyctl proxy 5432 -a mboyea-database-test & proxy_program="$!"
 
 # standup database
-PGPASSWORD=$PG_PASSWORD psql -p 5432 -U postgres -d postgres -f scripts/sql/deploy_databases.sql
+PGPASSWORD=$PG_PASSWORD psql -h localhost -p 5432 -U postgres -d postgres -f scripts/sql/main_deploy.psql
 
 # kill proxy
 kill $proxy_program

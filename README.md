@@ -29,10 +29,10 @@ To run a script, type `pnpm run <script-name>` into a terminal within the root f
 | `dev` | create a local hot-reloading server at [localhost:5173](http://localhost:5173) for development purposes |
 | `build` | compile a production version of the app into the build folder |
 | `preview` | create a local server which serves the contents of the build folder at [localhost:4173](http://localhost:4173) |
-| `deploy` | update app dependencies, build app, deploy secrets, deploy database schema, deploy app |
+| `deploy` | update app dependencies, build app, deploy database, deploy secrets, deploy server |
+| `deploy:database` | update postgres users, databases, tables, procedures, etc. |
 | `deploy:secrets` | set flyctl secrets from .env file |
-| `deploy:database` | update databases & tables |
-| `deploy:app` | deploy build folder to flyctl |
+| `deploy:server` | deploy build folder to flyctl |
 | `check` | evaluate Svelte syntax |
 | `check:watch` | re-evaluate Svelte syntax when files are updated |
 
@@ -41,13 +41,14 @@ Some features of this app require secret database credentials. These secrets can
 * Obtain the secrets.
 * Create a file named `.env` in the root directory.
 * Copy the secrets into the `.env` file.
+* Repeat for files `.env.development` and `.env.production`.
 
 ### Deploy
 * Install Dependencies.
 * Create Secrets.
 * Open a terminal in the root folder.
 * Run `pnpm run deploy`.
-* If postgres access is denied: check .env password; check port 5432 is free (use `netstat -ano | findstr :5432`)
+* If postgres access is denied: check .env password; check .env host; check port 5432 is free (use `netstat -ano | findstr :5432`)
 
 ### Contribute
 Unfortunately, this project doesn't support community contributions right now.

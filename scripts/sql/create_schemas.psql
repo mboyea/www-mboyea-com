@@ -1,0 +1,3 @@
+/* TODO: consider creating multiple schemas to segregate data accessible to only certain users
+see https://www.postgresqltutorial.com/postgresql-administration/postgresql-schema/
+*/
