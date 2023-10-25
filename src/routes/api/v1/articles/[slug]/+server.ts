@@ -4,13 +4,9 @@ import psql from "$lib/server/utils/psql";
 export const GET: ServerLoad = async ({ params, request }) => {
 	//TODO: return article from database by SLUG
 
-	/*psql.connect();
-	const res = await psql.query('SELECT $1::text as message', ['Hello world!'])
-	console.log(res.rows[0].message)
-	psql.end();
+	const response = await psql.query(`SELECT * FROM article WHERE id=${params.slug};`)
 
-	return json(res.rows[0].message);*/
-	return json('');
+	return json(response.rows)
 }
 
 export const POST: ServerLoad = async ({ params, request }) => {

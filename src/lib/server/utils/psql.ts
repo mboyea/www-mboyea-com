@@ -1,24 +1,29 @@
 import { PG_URL } from "$env/static/private";
 import pg from "pg";
-const { Client } = pg;
+const { Pool } = pg;
 
-let client = new Client({ connectionString: PG_URL });
+console.log(`Establishing connection to database.`);
+let pool = new Pool({ connectionString: PG_URL });
 
-console.log(`Connecting to database at host: ${client.host}.`);
-client.connect()
-.then(() => {
+console.log(`Testing connection to database.`);
+try {
+	await pool.connect();
 	console.log('Client successfully connected to database.');
-})
-.catch(e => {
+	try {
+		const response = await pool.query(
+			'SELECT $1::text as message',
+			['Client successfully queried database.']
+		);
+		console.log(response.rows[0].message);
+		console.log('Test successful.')
+	}
+	catch(e) {
+		console.error(`Query failed: ${e}`);
+	}
+}
+catch(e) {
 	console.error(`Connection failed: ${e}`);
-});
-client.query('SELECT $1::text as message', ['Client successfully queried database.'])
-.then((response) => {
-	console.log(response.rows[0].message);
-})
-.catch(e => {
-	console.error(`Query failed: ${e}`);
-});
+}
 
-const psql = client;
+const psql = pool;
 export default psql;
