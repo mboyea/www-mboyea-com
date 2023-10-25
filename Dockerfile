@@ -25,7 +25,6 @@ COPY pnpm-lock.yaml package.json ./
 RUN pnpm install --prod
 # copy app files
 COPY build build
-COPY package.json ./
 # start server
 ENV HOST 0.0.0.0
 ENV PORT 8080
