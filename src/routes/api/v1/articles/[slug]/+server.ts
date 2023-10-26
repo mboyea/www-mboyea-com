@@ -2,11 +2,25 @@ import { json, type ServerLoad } from "@sveltejs/kit";
 import psql from "$lib/server/utils/psql";
 
 export const GET: ServerLoad = async ({ params, request }) => {
-	//TODO: return article from database by SLUG
-
-	const response = await psql.query(`SELECT * FROM article WHERE id=${params.slug};`)
-
-	return json(response.rows)
+	if (isNaN(Number(params.slug))) {
+		return json('Ivalid article ID.', { status: 404 });
+	}
+	const response = await psql.query(`
+		SELECT
+			id,
+			title,
+			publish_date AS publishDate,
+			last_edit_date AS lastEditDate,
+			description_md AS descriptionMd,
+			summary_md AS summaryMd,
+			text_md AS textMd
+		FROM article
+		WHERE id=${params.slug}
+	`);
+	if (response.rowCount < 1) {
+		return json('Article not found.', { status: 404 });
+	}
+	return json(response.rows[0]);
 }
 
 export const POST: ServerLoad = async ({ params, request }) => {

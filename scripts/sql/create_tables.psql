@@ -3,9 +3,9 @@
 
 CREATE TABLE article (
 	id SERIAL PRIMARY KEY,
+	title VARCHAR(128) NOT NULL,
 	publish_date TIMESTAMP NOT NULL DEFAULT now(),
 	last_edit_date TIMESTAMP NOT NULL DEFAULT now(),
-	title VARCHAR(128) NOT NULL,
 	description_md VARCHAR(256),
 	summary_md VARCHAR(512),
 	text_md TEXT NOT NULL
