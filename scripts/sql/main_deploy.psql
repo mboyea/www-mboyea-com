@@ -2,6 +2,6 @@
 /*\i scripts/sql/create_users.psql*/
 /*\i scripts/sql/create_schemas.psql*/
 \i scripts/sql/create_databases.psql
-\i scripts/sql/init_databases.psql
+\i scripts/sql/create_tables.psql
 /*\i scripts/sql/create_procedures.psql*/
 --TODO: better organization of init_database/create_procedures actions, probably by-table
