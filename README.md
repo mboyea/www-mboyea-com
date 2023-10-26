@@ -27,8 +27,7 @@ To run a script, type `pnpm run <script-name>` into a terminal within the root f
 | script-name | description |
 |:----------- |:----------- |
 | `dev` | create a local hot-reloading server at [localhost:5173](http://localhost:5173) for development purposes |
-| `build` | compile a production version of the app into the build folder |
-| `preview` | create a local server which serves the contents of the build folder at [localhost:4173](http://localhost:4173) |
+| `preview` | build app using .env.development, create a local server at [localhost:4173](http://localhost:4173) |
 | `deploy` | update app dependencies, build app, deploy database, deploy secrets, deploy server |
 | `deploy:database` | update postgres users, databases, tables, procedures, etc. |
 | `deploy:secrets` | set flyctl secrets from .env file |
@@ -41,7 +40,7 @@ Some features of this app require secret database credentials. These secrets can
 * Obtain the secrets.
 * Create a file named `.env` in the root directory.
 * Copy the secrets into the `.env` file.
-* Repeat for files `.env.development` and `.env.production`.
+* Repeat for file named `.env.development`.
 
 ### Deploy
 * Install Dependencies.

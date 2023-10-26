@@ -2,7 +2,6 @@
 
 # load .env
 set -a; source .env; set +a
-set -a; source .env.development; set +a
 
 # create proxy to connect to database on port 5432
 flyctl proxy 5432 -a mboyea-database-test & proxy_program="$!"

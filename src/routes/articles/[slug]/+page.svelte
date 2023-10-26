@@ -1,29 +1,19 @@
 <script lang="ts">
 	import { getArticle } from "$api/ArticleRequests";
-	import { onMount } from "svelte";
   import type { PageData } from "./$types";
 	export let data: PageData;
-
-	const loadArticle = () => {
-		const articleId = parseInt(data.slug) || -1;
-		if (articleId < 1) {
-			// TODO: handle couldn't find article
-			console.error(`'${data.slug}' is not a valid article id`)
-			return;
-		}
-		getArticle(articleId)
-			.then((result) => {
-				console.log(result);
-			})
-			.catch((e) => {
-				console.error(e);
-			});
-	}
-
-	onMount(()=>{
-		loadArticle();
-	});
+	let articleData = getArticle(parseInt(data.slug));
 </script>
 
-<h1>Article [{data.slug}]</h1>
-<p>Aa about [{data.slug}].</p>
+{#await articleData}
+<p>Loading article...</p>
+{:then article}
+<h1>{article.title}</h1>
+<p>{article.publishDate}</p>
+<p>{article.lastEditDate}</p>
+<p>{article.descriptionMd}</p>
+<p>{article.summaryMd}</p>
+<p>{article.textMd}</p>
+{:catch error}
+<p>{error}</p>
+{/await}

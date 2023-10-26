@@ -6,21 +6,15 @@ export const GET: ServerLoad = async ({ params, request }) => {
 		return json('Ivalid article ID.', { status: 404 });
 	}
 	const response = await psql.query(`
-		SELECT
-			id,
-			title,
-			publish_date AS publishDate,
-			last_edit_date AS lastEditDate,
-			description_md AS descriptionMd,
-			summary_md AS summaryMd,
-			text_md AS textMd
+		SELECT *
 		FROM article
 		WHERE id=${params.slug}
 	`);
 	if (response.rowCount < 1) {
 		return json('Article not found.', { status: 404 });
 	}
-	return json(response.rows[0]);
+	let result = response.rows[0]
+	return json(result);
 }
 
 export const POST: ServerLoad = async ({ params, request }) => {
