@@ -2,7 +2,7 @@ import { json, type ServerLoad } from "@sveltejs/kit";
 import psql from "$lib/server/utils/psql";
 
 export const GET: ServerLoad = async ({ params, request }) => {
-	if (isNaN(Number(params.slug))) {
+	if (isNaN(parseInt(params.slug || 'a'))) {
 		return json('Ivalid article ID.', { status: 404 });
 	}
 	const response = await psql.query(`
