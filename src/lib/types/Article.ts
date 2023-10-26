@@ -13,7 +13,7 @@ export const mockArticle: Article = {
 	title: 'Mock Article',
 	publishDate: '2023-10-26T00:09:52.221Z',
 	lastEditDate: '2023-10-26T00:09:52.221Z',
-	descriptionMd: 'This is a brief mock article, to be used for testing purposes.',
-	summaryMd: 'To summarize:\n> all functionality should be working!\n-*Lists*\n-**Text decoration**\n-`Code snippets`',
-	textMd: 'Blockquotes should be funtional.\n> This way, we can draw attention to important words.\nCode blocks should also work.\n```cpp\nint main() {\nstd::cout << "Hello world!";\n}\n```',
+	descriptionMd: 'This is a brief article to be used for testing.',
+	summaryMd: 'In summary:\n> all functionality should be working!\n\n- *Lists*\n- **Text decoration**\n- `Code snippets`',
+	textMd: '## Headers should work.\n### H3\n#### H4\n##### H5\n###### H6\n## Blockquotes should be funtional.\n> This way, we can draw attention to important words.\n\n## Code blocks should also work.\n```cpp\nint main() {\nstd::cout << "Hello world!";\n}\n```',
 }

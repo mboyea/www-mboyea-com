@@ -14,7 +14,7 @@ export const getArticles = async () => {
 			`${response.status} - ${JSON.stringify(await response.json())}`
 		);
 	}
-	return paramsToCamelCase(await response.json()) as Promise<Article>;
+	return paramsToCamelCase(await response.json()) as Promise<Article[]>;
 }
 
 /** Get article by ID. */
