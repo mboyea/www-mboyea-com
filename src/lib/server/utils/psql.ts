@@ -2,28 +2,29 @@ import { PG_URL } from "$env/static/private";
 import pg from "pg";
 const { Pool } = pg;
 
-console.log(`Establishing connection to database.`);
-let pool = new Pool({ connectionString: PG_URL });
+const createPool = () => {
+	console.log(`Establishing database connection.`);
+	const pool = new Pool({ connectionString: PG_URL });
+	return {
+		query: (queryTextOrConfig: string | pg.QueryConfig<any[]>, values?: any[] | undefined) => {
+			return pool.query(queryTextOrConfig, values);
+		},
+		testConnection: async () => {
+			console.log(`Testing database connection.`);
+			try {
+				const response = await pool.query(
+					'SELECT $1::text as message',
+					['Test successful.']
+				);
+				console.log(response.rows[0].message);
+			} catch(e) {
+				console.error(`Test failed: ${e}`);
+			}
+		},
+	};
+};
 
-console.log(`Testing connection to database.`);
-try {
-	await pool.connect();
-	console.log('Client successfully connected to database.');
-	try {
-		const response = await pool.query(
-			'SELECT $1::text as message',
-			['Client successfully queried database.']
-		);
-		console.log(response.rows[0].message);
-		console.log('Test successful.')
-	}
-	catch(e) {
-		console.error(`Query failed: ${e}`);
-	}
-}
-catch(e) {
-	console.error(`Connection failed: ${e}`);
-}
+const psql = createPool();
+await psql.testConnection();
 
-const psql = pool;
 export default psql;

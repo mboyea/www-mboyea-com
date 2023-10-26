@@ -1,13 +1,20 @@
 import type { Article } from "$types/Article";
+import { paramsToCamelCase } from "$utils/objectUtils";
 
 /** Get all articles. */
 export const getArticles = async () => {
+	const route = `/api/v1/articles`;
 	const request: RequestInit = {
 		method: 'GET',
 		redirect: 'follow',
 	}
-	const response = await fetch('/api/v1/articles', request);
-	return response.json();
+	const response = await fetch(route, request);
+	if (!response.ok) {
+		throw new Error(
+			`${response.status} - ${JSON.stringify(await response.json())}`
+		);
+	}
+	return paramsToCamelCase(await response.json()) as Promise<Article>;
 }
 
 /** Get article by ID. */
@@ -20,11 +27,8 @@ export const getArticle = async (id: number): Promise<Article> => {
 	const response = await fetch(route, request);
 	if (!response.ok) {
 		throw new Error(
-			`fetch route: ${route}\n` +
-			`response: ${response.status} ${response.statusText}\n` +
-			`payload: ${await response.json()}`
+			`${response.status} - ${JSON.stringify(await response.json())}`
 		);
 	}
-	const result: Article = await (response.json() as Promise<Article>);
-	return result;
+	return paramsToCamelCase(await response.json()) as Promise<Article>;
 }
