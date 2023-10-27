@@ -1,18 +1,23 @@
 /* DEFAULT STYLES FOR layout.svelte */
 :root {
+	--default-font: Verdana, sans-serif;
+	--title-font: 'Trebuchet MS', sans-serif;
+	--brand-font: Georgia, 'Times New Roman', Times, serif;
+
 	--default-background-color: #222222;
 	--default-text-color: #eeeeee;
 	--default-link-color: #eeeeee;
 	--default-link-hover-color: #eeeeee;
 	--default-link-click-color: #eeeeee;
-	--default-font: Verdana, sans-serif;
 
 	--header-background-color: #111111;
 	--footer-background-color: #111111;
 	--article-background-color: #333333;
-
-	--brand-font: Georgia, 'Times New Roman', Times, serif;
+	
+	--brand-color-dark: #339333;
 	--brand-color: #33b333;
+	--brand-color-light: #33d333;
+
 }
 * {
   box-sizing: border-box;
