@@ -1,15 +1,12 @@
 <script lang="ts">
 	import './+layout.scss'
-	import SiteNav from '$modules/SiteNav.svelte'
+	import TheSiteNav from '$modules/TheSiteNav.svelte';
 
 	let currentYear: number = new Date().getFullYear();
 </script>
 
 <header id="page-header">
-	<div class="brand-logo">
-		<a href="/">mboyea</a>
-	</div>
-	<SiteNav/>
+	<TheSiteNav/>
 </header>
 
 <div id="page-main">
@@ -21,29 +18,9 @@
 </footer>
 
 <style lang="scss">
-	.brand-logo {
-		height: 100%;
-		padding-left: 1rem;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		a {
-			display: flex;
-			align-items: center;
-			font-size: xx-large;
-			height: 80%;
-			color: var(--brand-color);
-			font-family: var(--brand-font);
-			font-weight: bold;
-			text-decoration: none;
-		}
-	}
 	#page-header {
-		height: 4rem;
 		flex-shrink: 0;
-		display: flex;
-		flex-direction: right;
-		justify-content: space-between;
+		z-index: 1;
 		background-color: var(--header-background-color);
 		box-shadow: 0px -2px 6px black;
 	}
