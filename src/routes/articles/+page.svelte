@@ -9,7 +9,7 @@
 {:then articleList}
 <ul>
 	{#each articleList as article (article.id)}
-	<li><a href="/articles/{article.id}">{article.title}</a></li>
+	<li><a href="/articles/{article.url}">{article.title}</a></li>
 	{/each}
 </ul>
 {:catch error}

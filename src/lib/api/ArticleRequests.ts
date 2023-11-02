@@ -17,9 +17,9 @@ export const getArticles = async () => {
 	return paramsToCamelCase(await response.json()) as Promise<Article[]>;
 }
 
-/** Get article by ID. */
-export const getArticle = async (id: number): Promise<Article> => {
-	const route = `/api/v1/articles/${id}`;
+/** Get article by URL. */
+export const getArticle = async (url: string): Promise<Article> => {
+	const route = `/api/v1/articles/${url}`;
 	const request: RequestInit = {
 		method: 'GET',
 		redirect: 'follow',
