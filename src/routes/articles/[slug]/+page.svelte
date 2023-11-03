@@ -36,5 +36,15 @@
 {/await}
 
 <style lang="scss">
-	
+	article {
+		margin: 0;
+		padding: 1rem;
+		background-color: var(--article-background-color);
+	}
+	@media screen and (min-width: 1000px) {
+		article {
+			margin: 0 16vw;
+			padding: 1rem 2rem;
+		}
+	}
 </style>
