@@ -14,17 +14,17 @@ export const GET: ServerLoad = async () => {
 }
 
 export const POST: ServerLoad = async ({ params, request }) => {
-	return json('You don\'t have access to this endpoint.');
+	return json('You don\'t have access to this endpoint.', { status: 403 });
 }
 
 export const PATCH: ServerLoad = async ({ params, request }) => {
-	return json('You don\'t have access to this endpoint.');
+	return json('You don\'t have access to this endpoint.', { status: 403 });
 }
 
 export const PUT: ServerLoad = async ({ params, request }) => {
-	return json('You don\'t have access to this endpoint.');
+	return json('You don\'t have access to this endpoint.', { status: 403 });
 }
 
 export const DELETE: ServerLoad = async ({ params, request }) => {
-	return json('You don\'t have access to this endpoint.');
+	return json('You don\'t have access to this endpoint.', { status: 403 });
 }

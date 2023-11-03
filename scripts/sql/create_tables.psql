@@ -3,20 +3,23 @@
 
 CREATE TABLE article (
 	id SERIAL PRIMARY KEY,
-	title VARCHAR(128) NOT NULL UNIQUE,
+	url VARCHAR(64) NOT NULL UNIQUE,
+	title VARCHAR(64) NOT NULL UNIQUE,
 	publish_date TIMESTAMP NOT NULL DEFAULT now(),
 	last_edit_date TIMESTAMP NOT NULL DEFAULT now(),
+	featured_img_url VARCHAR(128),
 	description_md VARCHAR(256),
-	summary_md VARCHAR(512),
+	summary_md VARCHAR(1024),
 	text_md TEXT NOT NULL
 );
 
 /*
-INSERT INTO article (title, description_md, summary_md, text_md)
+INSERT INTO article (title, url, description_md, summary_md, text_md)
 VALUES (
 	'Mock Article',
+	'mock-article',
 	E'This is a brief article to be used for testing.',
 	E'In summary:\n> all functionality should be working!\n\n- *Lists*\n- **Text decoration**\n- `Code snippets`',
-	E'## Headers should work.\n### H3\n#### H4\n##### H5\n###### H6\n## Blockquotes should be funtional.\n> This way, we can draw attention to important words.\n\n## Code blocks should also work.\n```cpp\nint main() {\nstd::cout << "Hello world!";\n}\n```'
+	E'## Headers should work.\n### H3\n#### H4\n##### H5\n###### H6\n## Blockquotes should be functional.\n> This way, we can draw attention to important words.\n\n## Code blocks should also work.\n```cpp\nint main() {\nstd::cout << "Hello world!";\n}\n```'
 );
 */
