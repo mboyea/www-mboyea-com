@@ -37,14 +37,9 @@
 
 <style lang="scss">
 	article {
-		margin: 0;
-		padding: 1rem;
+		width: min(100%, 54rem);
+		margin: 0 auto;
+		padding: 1rem 2rem;
 		background-color: var(--article-background-color);
-	}
-	@media screen and (min-width: 1000px) {
-		article {
-			margin: 0 16vw;
-			padding: 1rem 2rem;
-		}
 	}
 </style>
