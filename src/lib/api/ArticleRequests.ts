@@ -2,13 +2,13 @@ import type { Article } from "$types/Article";
 import { paramsToCamelCase } from "$utils/objectUtils";
 
 /** Get all articles. */
-export const getArticles = async () => {
+export const getArticles = async (fetchCallback = fetch) => {
 	const route = `/api/v1/articles`;
 	const request: RequestInit = {
 		method: 'GET',
 		redirect: 'follow',
 	}
-	const response = await fetch(route, request);
+	const response = await fetchCallback(route, request);
 	if (!response.ok) {
 		throw new Error(
 			`${response.status} - ${JSON.stringify(await response.json())}`
@@ -18,13 +18,13 @@ export const getArticles = async () => {
 }
 
 /** Get article by URL. */
-export const getArticle = async (url: string): Promise<Article> => {
+export const getArticle = async (url: string, fetchCallback = fetch): Promise<Article> => {
 	const route = `/api/v1/articles/${url}`;
 	const request: RequestInit = {
 		method: 'GET',
 		redirect: 'follow',
 	}
-	const response = await fetch(route, request);
+	const response = await fetchCallback(route, request);
 	if (!response.ok) {
 		throw new Error(
 			`${response.status} - ${JSON.stringify(await response.json())}`
