@@ -5,11 +5,13 @@
 
 <h1>All Articles</h1>
 {#if data.articles}
-<ul>
-	{#each data.articles as article (article.id)}
-	<li><a href="/articles/{article.url}">{article.title}</a></li>
-	{/each}
-</ul>
+<nav>
+	<ul>
+		{#each data.articles as article (article.id)}
+		<li><a href="/articles/{article.url}">{article.title}</a></li>
+		{/each}
+	</ul>
+</nav>
 {:else if data.articlesError}
 <p>{data.articlesError}</p>
 {/if}
