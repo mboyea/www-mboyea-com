@@ -37,6 +37,6 @@
 		height: 100%;
 		margin: 0 auto;
 		padding: 1rem 2rem;
-		background-color: var(--article-background-color);
+		background-color: var(--content-background-color);
 	}
 </style>

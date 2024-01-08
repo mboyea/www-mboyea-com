@@ -19,6 +19,7 @@
 
 <style lang="scss">
 	#page-header {
+		border-bottom: 1px solid var(--default-border-color);
 		flex-shrink: 0;
 		z-index: 1;
 		background-color: var(--header-background-color);
@@ -29,6 +30,7 @@
 	}
 	#page-footer {
 		height: 3rem;
+		border-top: 1px solid var(--default-border-color);
 		flex-shrink: 0;
 		display: flex;
 		align-items: center;

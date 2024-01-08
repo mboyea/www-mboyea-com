@@ -4,8 +4,6 @@ A portfolio website to host articles, apps, and games built by Matthew Boyea.
 ---
 This website is built with [SvelteKit], [Typescript], & [Sass] to compile a html/css/js application delivered by a [Node.js] server. [PNPM] manages all dependency packages. [Docker] is used to compile the app into a minified [Ubuntu] environment. [Fly.io] hosts the Docker Image to serve the completed website.
 
-This full-stack website is FREE to host on Fly.io - once load increases (from more users visiting), it is still reasonably priced (just a few bucks a month) to host. The connection to host is extremely fast (like 60ms to view my page) and Fly supports postgres database instances on the edge to speed things up for international users. If your hosting tools AREN'T that cheap or are unreasonably difficult to configure, consider checking out Fly.io! Fly supports any programming tools that Docker supports (basically everything). I couldn't recommend Fly.io as a hosting provider enough! This message is not sponsored.
-
 ### Fork & Clone This Repository
 * [Fork this repository].
 * [Clone that repository] to your computer.

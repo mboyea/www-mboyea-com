@@ -90,6 +90,7 @@
 					color: var(--brand-color);
 				}
 				#site-nav-menu {
+					border-bottom: 1px solid var(--default-border-color);
 					visibility: visible;
 					transform: translateY(0);
 				}
