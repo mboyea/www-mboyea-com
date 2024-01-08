@@ -1,17 +1,85 @@
 <h1 id="featured-img">I'm Matthew Boyea.</h1>
-<p>My deepest motivation is to be an excellent father. I am well-read in philosophy, psychology, and sociology purely for this purpose - to be able to raise amazing young men and women effectively, without subjecting them to trauma. The goal is to facilitate a capacity for self-control which enables them to live without fear, guilt, and shame. This is the culture I have created in my own mind. If I were to fail this goal, I would love my kids unconditionally and feel no disappointment in them or myself. I hope to adopt children in need and offer them a place in my family.</p>
-<p>I intend to make a lot of money using my understanding of people, communication, and business. I intend to design and sell many great products with my skills and understanding of software, hardware, mechanics., and people These lovely and fulfilling endeavors of my life will fund my investment into my children and family. Once I am settled in my own home, I expect that I'll start searching the planet for a partner with complimentary culture and create the family of my dreams.</p>
-<p>I practice many hobbies and endeavor to be as skilled as I am able in the time I have for them. Most of my time right now is spent towards my relationships (meeting with family and friends), doing physical conditioning (weightlifting, MMA practice), and preparing for my career (job applications, portfolio work). I practice mixed martial arts, fishing, reading, bodybuilding, cooking, running, gymnastics, automotive mechanics, studying, photography, videography, writing, game development, and software engineering.</p>
-<p>TODO: /home styles</p>
+<section class="centered">
+	<h2>Engineer. Athlete. Scholar.</h2>
+	<p>I seek to provide value for my communities, my family, and my self.</p>
+	<p>In that effort, I study all manner of philosophies, systems, and experiences.</p>
+	<p>This is my website. I hope it is helpful to you.</p>
+</section>
+<section class="banner">
+	<ul>
+		<li><a href="/games">Play my games!</a></li>
+		<li><a href="/apps">Try my apps!</a></li>
+		<li><a href="/articles">Read my writing!</a></li>
+	</ul>
+</section>
+<section class="centered">
+	<p>If you would like to donate to me, <a href="/support">see my support page.</a></p>
+</section>
 
 <style lang="scss">
+	h2 {
+		font-family: var(--brand-font);
+	}
 	#featured-img {
 		margin: 0;
-		padding: 15vw 0 20vw 0;
+		padding: 12vw 0 18vw 0;
+		border-bottom: 1px solid var(--default-border-color);
 		text-shadow: 3px 3px 5px black;
-		font-size: 4vw;
+		font-size: max(4vw, 2rem);
 		&:before {
 			background-image: url('$imgs/homepage-background.jpg');
+		}
+	}
+	.centered {
+		padding: 0 2rem;
+		text-align: center;
+	}
+	.banner {
+		padding: 0.5rem 2rem;
+		border-top: 1px solid var(--default-border-color);
+		border-bottom: 1px solid var(--default-border-color);
+		background-color: var(--content-background-color);
+		ul {
+			margin: 0;
+			padding: 0;
+			display: flex;
+			justify-content: center;
+			flex-direction: row;
+			list-style-type: none;
+			gap: 3rem;
+			li {
+				display: contents;
+				a {
+					padding: 0.5rem 0;
+					font-family: var(--brand-font);
+					font-size: 1.25rem;
+					font-weight: bold;
+					text-decoration: none;
+					&:visited {
+						color: var(--default-text-color);
+					}
+					&:hover, &:focus {
+						color: var(--brand-color);
+					}
+					&:active {
+						color: var(--brand-color-dark);
+					}
+				}
+			}
+		}
+	}
+	@media screen and (max-width: 650px) {
+		.banner {
+			ul {
+				flex-direction: column;
+				gap: 0.8rem;
+				li {
+					a {
+						text-align: center;
+						font-size: 1.5rem;
+					}
+				}
+			}
 		}
 	}
 </style>
