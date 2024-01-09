@@ -17,9 +17,6 @@
 </section>
 
 <style lang="scss">
-	h2 {
-		font-family: var(--brand-font);
-	}
 	#featured-img {
 		margin: 0;
 		padding: 12vw 0 18vw 0;
@@ -30,29 +27,22 @@
 			background-image: url('$imgs/homepage-background.jpg');
 		}
 	}
-	.centered {
-		padding: 0 2rem;
-		text-align: center;
-	}
 	.banner {
-		padding: 0.5rem 2rem;
-		border-top: 1px solid var(--default-border-color);
-		border-bottom: 1px solid var(--default-border-color);
-		background-color: var(--content-background-color);
 		ul {
 			margin: 0;
 			padding: 0;
+			list-style-type: none;
 			display: flex;
 			justify-content: center;
-			flex-direction: row;
-			list-style-type: none;
-			gap: 3rem;
+			flex-direction: column;
+			gap: 0.8rem;
 			li {
 				display: contents;
 				a {
 					padding: 0.5rem 0;
+					text-align: center;
 					font-family: var(--brand-font);
-					font-size: 1.25rem;
+					font-size: 1.5rem;
 					font-weight: bold;
 					text-decoration: none;
 					&:visited {
@@ -68,15 +58,14 @@
 			}
 		}
 	}
-	@media screen and (max-width: 650px) {
+	@media screen and (min-width: 650px) {
 		.banner {
 			ul {
-				flex-direction: column;
-				gap: 0.8rem;
+				flex-direction: row;
+				gap: 3rem;
 				li {
 					a {
-						text-align: center;
-						font-size: 1.5rem;
+						font-size: 1.25rem;
 					}
 				}
 			}
