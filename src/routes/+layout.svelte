@@ -26,6 +26,8 @@
 		box-shadow: 0px -2px 6px black;
 	}
 	#page-main {
+		display: flex;
+		flex-direction: column;
 		flex: 1 0 auto;
 	}
 	#page-footer {

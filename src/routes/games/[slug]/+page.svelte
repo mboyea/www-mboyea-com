@@ -3,5 +3,8 @@
 	export let data: PageData;
 </script>
 
-<h1>Game [{data.slug}]</h1>
-<p>Aa about [{data.slug}].</p>
+<div class="centered">
+	<h1>Game [{data.slug}]</h1>
+	<p>Aa about [{data.slug}].</p>
+	<p>Coming soon!</p>
+</div>
