@@ -13,7 +13,7 @@
 	</ul>
 </section>
 <section class="centered">
-	<p>If you would like to donate to me, <a href="/support">see my support page.</a></p>
+	<p>If you would like to offer me assistance, <a href="/support">see my support page.</a></p>
 </section>
 
 <style lang="scss">
