@@ -1,4 +1,4 @@
-www.mboyea.com
+[www.mboyea.com](https://www.mboyea.com)
 ===
 A portfolio website to host articles, apps, and games built by Matthew Boyea.
 ---
