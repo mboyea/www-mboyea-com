@@ -6,20 +6,27 @@ This website is built with [SvelteKit], [Typescript], & [Sass] to compile a html
 
 ![Screenshot of home page.](img/screen-home.png)
 
+### Install (Windows)
+* [Install Git Bash](https://git-scm.com/download/win) for deployment scripts & GitHub commits.
+* [Install NPM](https://nodejs.org/en/download).
+* [Install PNPM](https://pnpm.io/installation).
+* [Install flyctl](https://fly.io/docs/hands-on/install-flyctl/) for deployments.
+* [Install psql](https://www.timescale.com/blog/how-to-install-psql-on-mac-ubuntu-debian-windows/) for remote SQL deployment.
+* Ensure each of the above command line tools are accessible by PATH.
+* [Clone this repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository) to a directory on your computer. That directory will be referred to as `root`.
+* Open a terminal in the root folder.
+* Run `pnpm i` in the terminal to install all app dependencies.
+From here, you can use & edit the app locally. You can run scripts in the terminal to do things.
+
+### Install (Arch Linux)
+* TODO
+* [Clone this repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository) to a directory on your computer. That directory will be referred to as `root`.
+From here, you can use & edit the app locally. You can run scripts in the terminal to do things.
+
 ### Fork & Clone This Repository
 * [Fork this repository].
 * [Clone that repository] to your computer.
 
-### Install Dependencies
-* Fork & Clone This Repository.
-* [Install NPM].
-* [Install PNPM].
-* [Install flyctl] for deployments.
-* [Install Git Bash] for deployment scripts & Github commits.
-* [Install psql] for remote SQL deployment.
-* Ensure each of the above command line tools are accessible by PATH.
-* Open a terminal in the root folder.
-* Run `pnpm i` in the terminal to install all app dependencies.
 
 From here, you can use & edit the app locally. You can run the following scripts in the terminal to do things.
 
@@ -52,7 +59,7 @@ Some features of this app require secret database credentials. These secrets can
 * If postgres access is denied: check .env password; check .env host; check port 5432 is free (use `netstat -ano | findstr :5432`)
 
 ### Contribute
-Unfortunately, this project doesn't support community contributions right now.
+Unfortunately, this project doesn't support community contributions right now. Feel free to fork, but be sure to [read the license](./LICENSE.md).
 
 [SvelteKit]: https://kit.svelte.dev/docs/introduction
 [Typescript]: https://www.typescriptlang.org/why-create-typescript
@@ -61,11 +68,5 @@ Unfortunately, this project doesn't support community contributions right now.
 [Docker]: https://docs.docker.com/get-started/overview/
 [Ubuntu]: https://ubuntu.com/about
 [PNPM]: https://pnpm.io/motivation
-[Install NPM]: https://nodejs.org/en/download
-[Install PNPM]: https://pnpm.io/installation
-[Install flyctl]: https://fly.io/docs/hands-on/install-flyctl/
-[Install Git Bash]: https://git-scm.com/downloads
-[Install psql]: https://www.timescale.com/blog/how-to-install-psql-on-mac-ubuntu-debian-windows/
 [Fly.io]: https://fly.io/docs/
-[Fork this repository]: https://docs.github.com/en/get-started/quickstart/fork-a-repo#forking-a-repository
-[Clone that repository]: https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository
+
