@@ -8,27 +8,25 @@ This website is built with [SvelteKit], [Typescript], & [Sass] to compile a html
 
 ### Install (Windows)
 * [Install Git Bash](https://git-scm.com/download/win) for deployment scripts & GitHub commits.
-* [Install NPM](https://nodejs.org/en/download).
+* [Install Node](https://nodejs.org/en/download).
 * [Install PNPM](https://pnpm.io/installation).
 * [Install flyctl](https://fly.io/docs/hands-on/install-flyctl/) for deployments.
 * [Install psql](https://www.timescale.com/blog/how-to-install-psql-on-mac-ubuntu-debian-windows/) for remote SQL deployment.
 * Ensure each of the above command line tools are accessible by PATH.
 * [Clone this repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository) to a directory on your computer. That directory will be referred to as `root`.
-* Open a terminal in the root folder.
-* Run `pnpm i` in the terminal to install all app dependencies.
-From here, you can use & edit the app locally. You can run scripts in the terminal to do things.
+* Open a terminal in `root`.
+* Run `pnpm i` in the terminal to install all remaining app dependencies.
+From here, you can use & edit the app locally on your Windows machine. See ### Run Scripts for more information.
 
 ### Install (Arch Linux)
-* TODO
+* Install `nodejs` from pacman.
+* Install `pnpm` from pacman.
+* Install `flyctl-bin` from the AUR.
+* Install `postgresql` from pacman.
 * [Clone this repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository) to a directory on your computer. That directory will be referred to as `root`.
-From here, you can use & edit the app locally. You can run scripts in the terminal to do things.
-
-### Fork & Clone This Repository
-* [Fork this repository].
-* [Clone that repository] to your computer.
-
-
-From here, you can use & edit the app locally. You can run the following scripts in the terminal to do things.
+* Open a terminal in `root`.
+* Run `pnpm i` in the terminal to install all remaining app dependencies.
+From here, you can use & edit the app locally on your Arch Linux machine. See ### Run Scripts for more information.
 
 ### Run Scripts
 To run a script, type `pnpm run <script-name>` into a terminal within the root folder.
