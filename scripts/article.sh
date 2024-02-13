@@ -1,10 +1,14 @@
 #!/bin/bash
 
+usage() {
+	echo "Usage: article <url> [Option]..."
+	echo
+}
+
 help() {
 	echo "Use a secure tunnel to access or modify articles stored in the postgres databse from the command line"
 	echo
-	echo "Usage: article <url> [Option]..."
-	echo
+	usage
 	echo "Options:"
 	echo "  ACTION OPTIONS"
 	echo "  -h         display this help & exit"
@@ -59,6 +63,5 @@ done
 # kill proxy
 # kill $proxy_program
 
-echo "Invalid command. Use -h for help with usage."
-echo
+usage
 

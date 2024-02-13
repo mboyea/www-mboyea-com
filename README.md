@@ -34,9 +34,11 @@ To run a script, type `pnpm run <script-name>` into a terminal within the root f
 | script-name | description |
 |:----------- |:----------- |
 | `start` | run start:dev |
-| `start:dev` | create a local hot-reloading server at [localhost:5173](http://localhost:5173) for development purposes |
-| `start:preview` | build app using .env.development, create a local server at [localhost:4173](http://localhost:4173) |
-| `deploy` | update app dependencies, build app, deploy database, deploy secrets, deploy server |
+| `start:dev` | create a local hot-reloading server at [localhost:5173](http://localhost:5173) to serve source code files |
+| `start:preview` | run build:preview, create a local server at [localhost:4173](http://localhost:4173) to serve built code files |
+| `build:preview` | build app using .env.development |
+| `build:prod` | build app using .env |
+| `deploy` | update app dependencies, run build:prod, run deploy:database, run deploy:secrets, run deploy:server |
 | `deploy:database` | update postgres users, databases, tables, procedures, etc. |
 | `deploy:secrets` | set flyctl secrets from .env file |
 | `deploy:server` | deploy build folder to flyctl |

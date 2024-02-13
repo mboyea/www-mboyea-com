@@ -6,8 +6,10 @@
 	"scripts": {
 		"start": "pnpm run start:dev",
 		"start:dev": "bash scripts/start-dev-server.sh",
-		"start:preview": "vite build -m development && bash scripts/start-preview-server.sh",
-		"deploy": "pnpm i && vite build && pnpm run deploy:database && pnpm run deploy:secrets && pnpm run deploy:server",
+		"start:preview": "pnpm run build:preview && bash scripts/start-preview-server.sh",
+		"build:preview": "vite build -m development",
+		"build:prod": "vite build",
+		"deploy": "pnpm i && pnpm run build:prod && pnpm run deploy:database && pnpm run deploy:secrets && pnpm run deploy:server",
 		"deploy:database": "bash scripts/deploy-database.sh",
 		"deploy:secrets": "bash scripts/stage-secrets.sh",
 		"deploy:server": "flyctl deploy -a www-mboyea-com",
