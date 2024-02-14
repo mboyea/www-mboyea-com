@@ -1,16 +1,10 @@
 #!/bin/bash
 
-usage() {
-	echo "Usage: article <url> [Option]..."
-	echo
-}
-
 help() {
 	echo "Use a secure tunnel to access or modify articles stored in the postgres databse from the command line"
 	echo
-
-	usage
-
+	echo "Usage: article [Option]... <url>"
+	echo
 	echo "Options:"
 	echo "  ACTION OPTIONS"
 	echo "  -h         display this help & exit"
@@ -44,10 +38,12 @@ load_env() {
 }
 
 upload() {
-	# TODO: pass -c "" code w/ INSERT statement
-	PGPASSWORD=$PG_PASSWORD psql -h localhost -p 5432 -U postgres -d mboyea_main #-c ""
-	# PGPASSWORD=$PG_PASSWORD psql -h localhost -p 5432 -U postgres -d postgres -f scripts/sql/main_deploy.psql
-	echo "$description $summary $title $text"
+	# PGPASSWORD=$PG_PASSWORD psql -h localhost -p 5432 -U postgres -d mboyea_main #-c ""
+	echo "$text"
+	echo "$summary"
+	echo "$description"
+	echo "$title"
+	echo "$url"
 	# https://stackoverflow.com/questions/3953645/ternary-operator-in-bash
 
 	# /*
@@ -62,39 +58,33 @@ upload() {
 	# */
 }
 
-OPTIND=1
-while getopts ":d:s:T:t:" data; do
-	case $data in
-		d)
-			description="$OPTARG"
-			;;
-		s)
-			summary="$OPTARG"
-			;;
-		T)
-			title="$OPTARG"
-			;;
-		t)
-			text="$OPTARG"
-			;;
-	esac
-done
+parse_data_options() {
+	local OPTIND
+	while getopts ":d:s:T:t:" opt; do
+		case $opt in
+			d) description="$(<$OPTARG)" ;;
+			s) summary="$(<$OPTARG)" ;;
+			T) title="$(<$OPTARG)" ;;
+			t) text="$(<$OPTARG)" ;;
+		esac
+	done
+	shift $((OPTIND-1))
+	url=$1
+}
 
-OPTIND=1
-while getopts ":hu" action; do
-	case $action in
-		h)
-			help
-			exit
-			;;
-		u)
-			create_proxy
-			load_env
-			upload
-			exit
-			;;
-	esac
-done
+parse_action_options() {
+	local OPTIND
+	while getopts ":hu" opt; do
+		case $opt in
+			h) help && exit ;;
+			u) create_proxy && load_env && upload && exit ;;
+		esac
+	done
+}
 
-usage
+parse_data_options "$@"
+parse_action_options "$@"
+
+# if not matched with any action option, print help
+help
 
