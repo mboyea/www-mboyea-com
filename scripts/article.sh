@@ -1,20 +1,34 @@
 #!/bin/bash
 
-help() {
+print_help() {
 	echo "Use a secure tunnel to access or modify articles stored in the postgres databse from the command line"
 	echo
-	echo "Usage: article [Option]... <url>"
+	echo "Usage: article [OPTION]... [URL]"
 	echo
-	echo "Options:"
+	echo "OPTIONS:"
 	echo "  ACTION OPTIONS"
 	echo "  -h         display this help & exit"
-	echo "  -u         upload data to URL & exit"
+	echo "  -p         print data & exit"
+	echo "  -u         upload data to url & exit"
+	echo "             requires TEXT, TITLE, URL"
 	echo "  DATA OPTIONS"
-	echo "  -d <file>  description target file"
-	echo "  -s <file>  summary target file"
-	echo "  -T <file>  title target file"
-	echo "  -t <file>  text target file"
+	echo "  -D <string> DESCRIPTION string (markdown)"
+	echo "  -d <file>   DESCRIPTION target file (markdown)"
+	echo "  -S <string> SUMMARY string (markdown)"
+	echo "  -s <file>   SUMMARY target file (markdown)"
+	echo "  -I <string> TITLE string"
+	echo "  -i <file>   TITLE target file"
+	echo "  -T <string> TEXT string (markdown)"
+	echo "  -t <file>   TEXT target file (markdown)"
 	echo
+}
+
+print_vars() {
+	echo "TEXT: $text"
+	echo "SUMMARY: $summary"
+	echo "DESCRIPTION: $description"
+	echo "TITLE: $title"
+	echo "URL: $url"
 }
 
 create_proxy() {
@@ -37,34 +51,40 @@ load_env() {
 	set -a; source .env; set +a
 }
 
-upload() {
-	# PGPASSWORD=$PG_PASSWORD psql -h localhost -p 5432 -U postgres -d mboyea_main #-c ""
-	echo "$text"
-	echo "$summary"
-	echo "$description"
-	echo "$title"
-	echo "$url"
-	# https://stackoverflow.com/questions/3953645/ternary-operator-in-bash
-
-	# /*
-	# INSERT INTO article (title, url, description_md, summary_md, text_md)
-	# VALUES (
-	# 	'Mock Article',
-	# 	'mock-article',
-	# 	E'This is a brief article to be used for testing.',
-	# 	E'In summary:\n> all functionality should be working!\n\n- *Lists*\n- **Text decoration**\n- `Code snippets`',
-	# 	E'## Headers should work.\n### H3\n#### H4\n##### H5\n###### H6\n## Blockquotes should be functional.\n> This way, we can draw attention to important words.\n\n## Code blocks should also work.\n```cpp\nint main() {\nstd::cout << "Hello world!";\n}\n```'
-	# );
-	# */
+upload_article() {
+	# check options for validity
+	[[ -z "$url" ]] && echo "Error: Could not resolve article URL. Run with -h for help." && exit
+	[[ -z "$text" ]] && echo "Error: Could not resolve article TEXT. Run with -h for help." && exit
+	[[ -z "$title" ]] && echo "Error: Could not resolve article TITLE. Run with -h for help." && exit
+	# query the SQL database
+	PGPASSWORD=$PG_PASSWORD psql -h localhost -p 5432 -U postgres -d mboyea_main <<EOF
+INSERT INTO article (
+$([[ -n "$description" ]] && echo "  description_md,")
+$([[ -n "$summary" ]] && echo "  summary_md,")
+  text_md,
+  title,
+  url
+) VALUES (
+$([[ -n "$description" ]] && echo "  E'$(echo "$description" | sed -e s/\'/\\\\\'/g)',")
+$([[ -n "$summary" ]] && echo "  E'$(echo "$summary" | sed -e s/\'/\\\\\'/g)',")
+  E'$(echo "$text" | sed -e s/\'/\\\\\'/g)',
+  '$(echo "$title" | sed -e s/\'/\\\\\'/g)',
+  '$(echo "$url" | sed -e s/\'/\\\\\'/g)'
+);
+EOF
 }
 
 parse_data_options() {
 	local OPTIND
-	while getopts ":d:s:T:t:" opt; do
+	while getopts ":d:D:s:S:i:I:t:T:" opt; do
 		case $opt in
+			D) description="$OPTARG" ;;
 			d) description="$(<$OPTARG)" ;;
+			S) summary="$OPTARG" ;;
 			s) summary="$(<$OPTARG)" ;;
-			T) title="$(<$OPTARG)" ;;
+			I) title="$OPTARG" ;;
+			i) title="$(<$OPTARG)" ;;
+			T) text="$OPTARG" ;;
 			t) text="$(<$OPTARG)" ;;
 		esac
 	done
@@ -74,10 +94,11 @@ parse_data_options() {
 
 parse_action_options() {
 	local OPTIND
-	while getopts ":hu" opt; do
+	while getopts ":hpu" opt; do
 		case $opt in
-			h) help && exit ;;
-			u) create_proxy && load_env && upload && exit ;;
+			h) print_help && exit ;;
+			p) print_vars && exit ;;
+			u) create_proxy && load_env && upload_article && exit ;;
 		esac
 	done
 }
@@ -86,5 +107,5 @@ parse_data_options "$@"
 parse_action_options "$@"
 
 # if not matched with any action option, print help
-help
+print_help
 
