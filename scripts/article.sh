@@ -39,8 +39,10 @@ create_proxy() {
 		sleep 0.4
 	}
 	trap cleanup EXIT
+
 	# create proxy to connect to database on port 5432
 	coproc proxy_program (flyctl proxy 5432 -a mboyea-database-test)
+
 	# wait for output from proxy program
 	read output <&"${proxy_program[0]}"
 	echo $output
@@ -56,6 +58,7 @@ upload_article() {
 	[[ -z "$url" ]] && echo "Error: Could not resolve article URL. Run with -h for help." && exit
 	[[ -z "$text" ]] && echo "Error: Could not resolve article TEXT. Run with -h for help." && exit
 	[[ -z "$title" ]] && echo "Error: Could not resolve article TITLE. Run with -h for help." && exit
+
 	# query the SQL database
 	PGPASSWORD=$PG_PASSWORD psql -h localhost -p 5432 -U postgres -d mboyea_main <<EOF
 INSERT INTO article (
