@@ -17,6 +17,8 @@ create_proxy() {
 	echo $output
 }
 
+create_proxy
+
 # start dev server
 vite dev
 
