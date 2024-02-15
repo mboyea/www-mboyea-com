@@ -4,14 +4,18 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
-		"dev": "bash scripts/start_dev_server.sh",
-		"preview": "vite build -m development && bash scripts/start_preview_server.sh",
-		"deploy": "pnpm i && vite build && pnpm run deploy:database && pnpm run deploy:secrets && pnpm run deploy:server",
-		"deploy:database": "bash scripts/deploy_database.sh",
-		"deploy:secrets": "bash scripts/stage_secrets.sh",
+		"start": "pnpm run start:dev",
+		"start:dev": "bash scripts/start-dev-server.sh",
+		"start:preview": "pnpm run build:preview && bash scripts/start-preview-server.sh",
+		"build:preview": "vite build -m development",
+		"build:prod": "vite build",
+		"deploy": "pnpm i && pnpm run build:prod && pnpm run deploy:database && pnpm run deploy:secrets && pnpm run deploy:server",
+		"deploy:database": "bash scripts/deploy-database.sh",
+		"deploy:secrets": "bash scripts/stage-secrets.sh",
 		"deploy:server": "flyctl deploy -a www-mboyea-com",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"article": "bash scripts/article.sh"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-node": "^1.2.4",
