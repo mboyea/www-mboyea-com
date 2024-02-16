@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { marked } from 'marked';
-  import type { PageData } from "./$types";
+	import type { PageData } from "./$types";
 	export let data: PageData;
 </script>
 
@@ -14,16 +14,16 @@
 		{/if}
 	</header>
 	{#if data.article.descriptionMd}
-		<section class="description">
-			<h2>Description</h2>
-			{@html marked.parse(data.article.descriptionMd)}
-		</section>
+	<section class="description">
+		<h2>Description</h2>
+		{@html marked.parse(data.article.descriptionMd)}
+	</section>
 	{/if}
 	{#if data.article.summaryMd}
-		<section class="summary">
-			<h2>Summary</h2>
-			{@html marked.parse(data.article.summaryMd)}
-		</section>
+	<section class="summary">
+		<h2>Summary</h2>
+		{@html marked.parse(data.article.summaryMd)}
+	</section>
 	{/if}
 	{@html marked.parse(data.article.textMd)}
 </article>
