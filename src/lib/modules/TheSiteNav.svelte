@@ -1,8 +1,8 @@
 <nav aria-label="Website Navigation">
 	<a href="/" class="brand-logo" aria-label="Website Home" role="menuitem">&lt;/mboyea&gt;</a>
 	<div class="site-nav" aria-label="Website Pages" role="menubar">
-		<button id="site-nav-dropdown-button" type="button" aria-expanded="false" aria-controls="site-nav-menu">☰</button>
-		<ul id="site-nav-menu">
+		<button id="site-nav-dropdown-button" type="button" aria-expanded="false" aria-controls="site-nav-list">☰</button>
+		<ul id="site-nav-list">
 			<li><a href="/articles" role="menuitem">Articles</a></li>
 			<li><a href="/apps" role="menuitem">Apps</a></li>
 			<li><a href="/games" role="menuitem">Games</a></li>
@@ -49,7 +49,7 @@
 					color: var(--brand-color);
 				}
 			}
-			#site-nav-menu {
+			#site-nav-list {
 				visibility: hidden;
 				width: 100%;
 				margin: 0;
@@ -89,7 +89,7 @@
 				#site-nav-dropdown-button {
 					color: var(--brand-color);
 				}
-				#site-nav-menu {
+				#site-nav-list {
 					border-bottom: 1px solid var(--default-border-color);
 					visibility: visible;
 					transform: translateY(0);
@@ -104,7 +104,7 @@
 				#site-nav-dropdown-button {
 					display: none;
 				}
-				#site-nav-menu {
+				#site-nav-list {
 					height: 100%;
 					visibility: visible;
 					padding: 0;

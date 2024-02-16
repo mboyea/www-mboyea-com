@@ -21,7 +21,7 @@
 
 }
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
 	font-family: var(--default-font);
@@ -57,24 +57,24 @@ h1 {
 }
 h2 {
 	font-family: var(--brand-font);
-  margin-block-start: .83em;
-  margin-block-end: .83em;
+	margin-block-start: .83em;
+	margin-block-end: .83em;
 }
 h3 {
-  margin-block-start: 1em;
-  margin-block-end: 1em;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
 }
 h4 {
-  margin-block-start: 1.33em;
-  margin-block-end: 1.33em;
+	margin-block-start: 1.33em;
+	margin-block-end: 1.33em;
 }
 h5 {
-  margin-block-start: 1.67em;
-  margin-block-end: 1.67em;
+	margin-block-start: 1.67em;
+	margin-block-end: 1.67em;
 }
 h6 {
-  margin-block-start: 2.33em;
-  margin-block-end: 2.33em;
+	margin-block-start: 2.33em;
+	margin-block-end: 2.33em;
 }
 code {
 	font-family: monospace;

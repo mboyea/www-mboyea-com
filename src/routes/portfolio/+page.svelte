@@ -23,9 +23,6 @@
 		text-shadow: 3px 3px 5px black;
 		font-size: max(4vw, 2rem);
 	}
-	.banner {
-		
-	}
 	.resume {
 		width: min(100%, 120vh);
 		height: 70vh;
