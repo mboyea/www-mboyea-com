@@ -8,6 +8,7 @@
 	<iframe class="resume" title="Resume Document Preview" src="/docs/Boyea.Matthew.Resume.pdf" frameborder="0"></iframe>
 	<p><a href="/docs/Boyea.Matthew.Resume.pdf">Open Document</a></p>
 	<p><a href="/docs/Boyea.Matthew.Resume.pdf" download>Download Document</a></p>
+	<p><a href="https://github.com/mboyea/resume" download>View Document Source</a></p>
 </section>
 <section class="centered">
 	<h2>Featured Work</h2>
