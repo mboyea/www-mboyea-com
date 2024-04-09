@@ -28,6 +28,14 @@ From here, you can use & edit the app locally on your Windows machine. See ### R
 * Run `pnpm i` in the terminal to install all remaining app dependencies.
 From here, you can use & edit the app locally on your Arch Linux machine. See ### Run Scripts for more information.
 
+### Install (NixOS)
+* Add the `nodePackages.pnpm` `flyctl` `postgresql` packages to NixOS config or Home Manager config.
+* Run `sudo nixos-rebuild switch` `home-manager switch`.
+* [Clone this repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository) to a directory on your computer. That directory will be referred to as `root`.
+* Open a terminal in `root`.
+* Run `pnpm i` in the terminal to install all remaining app dependencies.
+From here, you can use & edit the app locally on your Arch Linux machine. See ### Run Scripts for more information.
+
 ### Run Scripts
 To run a script, type `pnpm run <script-name>` into a terminal within the root folder.
 
