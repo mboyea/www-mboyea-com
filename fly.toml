@@ -1,10 +1,12 @@
-# fly.toml app configuration file generated for www-mboyea-com on 2023-06-04T16:59:49-05:00
+# fly.toml app configuration file generated for www-mboyea-com on 2024-07-24T21:22:14-05:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "www-mboyea-com"
-primary_region = "den"
+app = 'www-mboyea-com'
+primary_region = 'den'
+
+[build]
 
 [http_service]
   internal_port = 8080
@@ -12,3 +14,8 @@ primary_region = "den"
   auto_stop_machines = true
   auto_start_machines = true
   min_machines_running = 0
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
