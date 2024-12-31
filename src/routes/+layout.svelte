@@ -1,5 +1,12 @@
 <script lang="ts">
 	import './+layout.scss'
+</script>
+
+<slot />
+
+<!---
+<script lang="ts">
+	import './+layout.scss'
 	import TheSiteNav from '$modules/TheSiteNav.svelte';
 
 	let currentYear: number = new Date().getFullYear();
@@ -44,3 +51,4 @@
 		}
 	}
 </style>
+--->
