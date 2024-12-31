@@ -1,3 +1,20 @@
+<div class="center-vertically">
+  <h1>Coming Soon!</h1>
+</div>
+
+<style lang="scss">
+	h1 {
+		font-size: max(4vw, 2rem);
+		text-align: center;
+	}
+	div {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+	}
+</style>
+<!---
 <h1 id="featured-img">I'm Matthew Boyea.</h1>
 <section class="centered">
 	<h2>Engineer. Athlete. Scholar.</h2>
@@ -72,3 +89,4 @@
 		}
 	}
 </style>
+--->
