@@ -1,10 +1,11 @@
-[www.mboyea.com](https://www.mboyea.com)
-===
-A portfolio website to host articles, apps, and games built by Matthew Boyea.
----
+# [www.mboyea.com](https://www.mboyea.com)
+
+## A portfolio website to host articles, apps, and games built by Matthew Boyea
+
 This website is built with [SvelteKit], [Sass], & [Typescript] to compile a html/css/js application delivered by a [Node.js] server. [PNPM] manages all dependency packages. [Docker] is used to compile the app into a minified [Ubuntu] environment. [Fly.io] hosts the Docker Image to serve the completed website.
 
 ### Install (Windows)
+
 * [Install Git Bash](https://git-scm.com/download/win) for deployment scripts & GitHub commits.
 * [Install Node](https://nodejs.org/en/download).
 * [Install PNPM](https://pnpm.io/installation).
@@ -17,6 +18,7 @@ This website is built with [SvelteKit], [Sass], & [Typescript] to compile a html
 From here, you can use & edit the app locally on your Windows machine. See ### Run Scripts for more information.
 
 ### Install (Arch Linux)
+
 * Install `nodejs` from pacman.
 * Install `pnpm` from pacman.
 * Install `flyctl-bin` from the AUR.
@@ -27,7 +29,8 @@ From here, you can use & edit the app locally on your Windows machine. See ### R
 From here, you can use & edit the app locally on your Arch Linux machine. See ### Run Scripts for more information.
 
 ### Install (NixOS)
-* Add the `nodePackages.pnpm` `flyctl` `postgresql` packages to NixOS config or Home Manager config.
+
+* Add the `nodejs` `nodePackages.pnpm` `flyctl` `postgresql` packages to NixOS config or Home Manager config.
 * Run `sudo nixos-rebuild switch` `home-manager switch`.
 * [Clone this repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository) to a directory on your computer. That directory will be referred to as `root`.
 * Open a terminal in `root`.
@@ -35,6 +38,7 @@ From here, you can use & edit the app locally on your Arch Linux machine. See ##
 From here, you can use & edit the app locally on your Arch Linux machine. See ### Run Scripts for more information.
 
 ### Run Scripts
+
 To run a script, type `pnpm run <script-name>` into a terminal within the root folder.
 
 | script-name | description |
@@ -53,13 +57,29 @@ To run a script, type `pnpm run <script-name>` into a terminal within the root f
 | `article` | cli to modify articles in the postgres database; pass -h for more details |
 
 ### Create Secrets
+
 Some features of this app require secret database credentials. These secrets cannot be shared in public.
+
 * Obtain the secrets.
 * Create a file named `.env` in the root directory.
 * Copy the secrets into the `.env` file.
+
+  ```sh
+  PG_URL="postgres://postgres:AAAAAAAAAAAAAAA@db-name.flycast:5432/mboyea_main"
+  PG_USERNAME="postgres"
+  PG_PASSWORD="AAAAAAAAAAAAAAA"
+  ```
+
 * Repeat for file named `.env.development`.
 
+  ```sh
+  PG_URL="postgres://postgres:AAAAAAAAAAAAAAA@127.0.0.1:5432/mboyea_main"
+  PG_USERNAME="postgres"
+  PG_PASSWORD="AAAAAAAAAAAAAAA"
+  ```
+
 ### Deploy
+
 * Install Dependencies.
 * Create Secrets.
 * Open a terminal in the root folder.
@@ -67,6 +87,7 @@ Some features of this app require secret database credentials. These secrets can
 * If postgres access is denied: check .env password; check .env host; check port 5432 is free (use `netstat -ano | findstr :5432`)
 
 ### Contribute
+
 Unfortunately, this project doesn't support community contributions right now. Feel free to fork, but be sure to [read the license](./LICENSE.md).
 
 [SvelteKit]: https://kit.svelte.dev/docs/introduction
