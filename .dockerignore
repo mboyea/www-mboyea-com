@@ -1,6 +1,0 @@
-# ignore everything by default
-*
-# allow
-!/build
-!/pnpm-lock.yaml
-!/package.json
