@@ -1,3 +1,0 @@
-/* CREATE mboyea_main */
-\c postgres;
-CREATE DATABASE mboyea_main;
