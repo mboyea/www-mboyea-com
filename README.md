@@ -141,7 +141,7 @@ Fly natively supports concurrent postgres instances, and provides some convenien
 It also allows the server to connect to the database over an internal network, so the Postgres database doesn't have to be exposed to the internet.
 These features make Fly an ideal hosting provider for performance and security.
 
-If I ever decided that Fly was an inferior hosting option, it would be no problem to migrate from their service to another, because you can run Docker containers pretty much anywhere (hooray for avoiding vendor lock-in!).
+If I ever decided that Fly was an inferior hosting option, it would be no problem to migrate from their service to another, because you can run Docker containers pretty much anywhere (hooray for avoiding [vendor lock-in](https://en.wikipedia.org/wiki/Vendor_lock-in)!).
 
 ### How to contribute?
 
