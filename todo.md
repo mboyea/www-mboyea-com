@@ -14,5 +14,15 @@ default_: todo
 
 ## Milestones
 
-- [x] (A) 2024-02-18 Draft `scripts/run.nix`, and `scripts/help.sh` @code
+- [ ] (A) 2024-03-01 Announce release +1.0.0 @docs
+- [ ] (A) 2024-02-28 Complete `website/src/` @code
+- [ ] (A) 2024-02-25 Complete `database/schema/` @code
+- [ ] (A) 2024-02-23 Complete `nix run .#deploy` @code
+- [ ] (A) 2024-02-19 Complete `nix run .#start` @code
+- [ ] (A) 2024-02-__ Draft `nix run .#start dev` @code
+- [ ] (A) 2024-02-__ Draft `flake.nix` `devShells` & test devenv @code
+- [ ] (A) 2024-02-__ Draft `website/packages`  @code
+- [ ] (A) 2024-02-__ Draft `database/packages`  @code
+- [x] (A) 2024-02-18 Draft `nix run .#start help` @code @docs
+- [x] (A) 2024-02-18 Draft `scripts/run.nix`, and `scripts/help.sh` @code @docs
 - [x] (A) 2024-02-17 Draft `README.md` @docs

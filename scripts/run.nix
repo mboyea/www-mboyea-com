@@ -35,11 +35,26 @@
     '';
   in ''
     runHook preCheck
+    if [ -d "${target}" ]; then
+      echo "Error: Path \"${target}\" is a directory, not a file" 1>&2
+      exit 1
+    elif [ ! -f "${target}" ]; then
+      echo "Error: File \"${target}\" does not exist" 1>&2
+      echo "Perhaps you need to run \"git add\" on the source file" 1>&2
+      exit 1
+    elif [ ! -r "${target}" ]; then
+      echo "Error: File \"${target}\" is not readable" 1>&2
+      exit 1
+    elif [ ! -x "${target}" ]; then
+      echo "Error: File \"${target}\" is not executable" 1>&2
+      echo "Perhaps you need to run \"chmod +x\" on the source file" 1>&2
+      exit 1
+    fi
     ${stdenv.shellDryRun} "${target}"
     ${shellcheckCommand}
     runHook postCheck
   '';
   text = ''
-    "${builtins.toString target}"
+    "${target}"
   '';
 }

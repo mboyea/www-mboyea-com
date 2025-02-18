@@ -17,6 +17,10 @@
           name = "${name}-${version}-help";
           target = scripts/help.sh;
         };
+        start = pkgs.callPackage scripts/run.nix {
+          name = "${name}-${version}-start";
+          target = scripts/start.sh;
+        };
       };
       apps = {
         help = utils.lib.mkApp { drv = packages.help; };
