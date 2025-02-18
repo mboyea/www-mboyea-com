@@ -14,4 +14,5 @@ default_: todo
 
 ## Milestones
 
+- [x] (A) 2024-02-18 Draft `scripts/run.nix`, and `scripts/help.sh` @code
 - [x] (A) 2024-02-17 Draft `README.md` @docs
