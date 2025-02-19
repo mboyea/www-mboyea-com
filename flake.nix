@@ -16,13 +16,17 @@
         (builtins.readDir ./modules);
     in rec {
       packages = {
-        help = pkgs.callPackage scripts/run.nix {
+        help = pkgs.callPackage utils/run.nix {
           name = "${name}-${version}-help";
           target = scripts/help.sh;
         };
-        start = pkgs.callPackage scripts/run.nix {
+        start = pkgs.callPackage utils/run.nix {
           name = "${name}-${version}-start";
           target = scripts/start.sh;
+          runtimeEnv = {
+            START_DEV_WEBSERVER = pkgs.lib.getExe modules.sveltekit.packages.dev;
+            START_DEV_DATABASE = pkgs.lib.getExe modules.postgres.packages.container;
+          };
         };
         default = packages.start.override { cliArgs = [ "dev" ]; };
       };
@@ -44,6 +48,10 @@
             # run docker containers without starting a daemon
             pkgs.podman
           ];
+          shellHook = ''
+            export START_DEV_WEBSERVER="${pkgs.lib.getExe modules.sveltekit.packages.dev}"
+            export START_DEV_DATABASE="${pkgs.lib.getExe modules.postgres.packages.container}"
+          '';
         };
         # the default devShell is a combination of every devShell
         default = pkgs.mkShell {

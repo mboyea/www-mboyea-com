@@ -8,6 +8,9 @@ in rec {
     dockerImage = pkgs.callPackage ./packages/docker-image.nix {
       inherit name version;
     };
+    container = pkgs.callPackage ./packages/container.nix {
+      image = packages.dockerImage;
+    };
   };
   devShells.default = import ./shell.nix { inherit pkgs; };
 }

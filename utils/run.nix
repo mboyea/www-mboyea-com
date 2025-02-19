@@ -1,13 +1,13 @@
 #----------------------------------------
-# Description : use nixpkgs.writeShellApplication to shellcheck & execute an existing script
+# Description: Use writeShellApplication to shellcheck & execute an existing script
 # ? https://github.com/NixOS/nixpkgs/blob/nixos-24.11/pkgs/build-support/trivial-builders/default.nix#L193
-# Usage : 
-# help = pkgs.callPackage scripts/run.nix {
+# Usage: 
+# pkgs.callPackage utils/run.nix {
 #   name = "${name}-${version}-help";
 #   target = scripts/help.sh;
 # };
-# Origin : https://github.com/mboyea/www-mboyea-com
-# Author : Matthew Boyea
+# Origin: https://github.com/mboyea/www-mboyea-com
+# Author: Matthew Boyea
 #----------------------------------------
 {
   pkgs,
@@ -16,6 +16,7 @@
   target,
   runtimeInputs ? [],
   runtimeEnv ? null,
+  envFiles ? [],
   meta ? {},
   passthru ? {},
   excludeShellChecks ? [],
@@ -56,6 +57,32 @@
     runHook postCheck
   '';
   text = ''
+    go_to_base_directory() {
+      # if current directory is not a git directory, return
+      if ! "${pkgs.lib.getExe pkgs.git}" rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+        return
+      fi
+      # go to the base of the git directory
+      cd "$("${pkgs.lib.getExe pkgs.git}" rev-parse --show-toplevel)"
+    }
+    load_env_files() {
+      go_to_base_directory
+      # for each file
+      while [[ $# -gt 0 ]]; do
+        # if file isn't readable, continue
+        if [ ! -r "$1" ]; then
+          shift
+          continue
+        fi
+        # load file
+        set -a
+        # shellcheck disable=SC1091 source=/dev/null
+        source "$1"
+        set +a
+        shift
+      done
+    }
+    load_env_files ${pkgs.lib.strings.concatStringsSep " " envFiles}
     "${target}" "$@" ${pkgs.lib.strings.concatStringsSep " " cliArgs}
   '';
 }

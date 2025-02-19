@@ -19,6 +19,9 @@ in rec {
       inherit name version;
       server = packages.server;
     };
+    container = pkgs.callPackage ../../utils/mk-container.nix {
+      image = packages.dockerImage;
+    };
   };
   devShells.default = import ./shell.nix { inherit pkgs; };
 }
