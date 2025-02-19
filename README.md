@@ -76,7 +76,7 @@ You'll need a [Fly.io] account to deploy.
 - [Make a Fly.io account](https://fly.io/dashboard). Link your payment method in the account.
 - Run `flyctl auth login`
 
-You'll need to deploy two apps to Fly.io; one for the database, and one for the server.
+You'll need to deploy two apps to Fly.io; one for the Postgres database, and one for the SvelteKit server.
 First you should deploy your database.
 
 - Add to `.env`:
@@ -110,7 +110,7 @@ Test this process first using `nix run .#start prod` and `psql -U=$TODO -W=$TODO
 - Run `flyctl postgres connect --user $TODO --password $TODO`
 - Modify the old table using [ALTER TABLE](https://www.postgresql.org/docs/current/sql-altertable.html).
 
-*As long as your existing database doesn't contain conflicting tables*, you should be able to re-deploy after making changes to the website or database like usual.
+*As long as your existing database doesn't contain conflicting tables*, you should be able to re-deploy after making changes to the server or database like usual.
 
 - Run `nix run .#deploy all`
 
@@ -128,11 +128,11 @@ Test this process first using `nix run .#start prod` and `psql -U=$TODO -W=$TODO
 
 Scripts and dependencies are declared in `flake.nix` and defined in `scripts/`.
 
-Source code for the web server is in `website/`.
-[SvelteKit] is used to build a [Node.js] server, making use of [Sass] for superior CSS features and [TypeScript] for type security between the front-end and back-end of the website.
+Source code for the web server is in `modules/sveltekit/`.
+[SvelteKit] is used to build a [Node.js] server, making use of [Sass] for superior CSS features and [TypeScript] for type security in both the front-end and back-end of the server.
 Nix packages a Docker image with this webserver inside.
 
-Source code for the database is in `database/`.
+Source code for the database is in `modules/postgres/`.
 [Postgres] is used to provide a SQL database that best supports concurrency at scale.
 Nix packages a Docker image with this database inside.
 
@@ -141,7 +141,7 @@ Fly natively supports concurrent postgres instances, and provides some convenien
 It also allows the server to connect to the database over an internal network, so the Postgres database doesn't have to be exposed to the internet.
 These features make Fly an ideal hosting provider for performance and security.
 
-If I ever decided that Fly was an inferior hosting option, it would be no problem to migrate from their service to another, because you can run Docker containers pretty much anywhere (hooray for avoiding [vendor lock-in](https://en.wikipedia.org/wiki/Vendor_lock-in)!).
+If I ever decided that Fly was an inferior hosting option, it would be no problem to migrate from their service to another, because you can run Docker containers pretty much anywhere. Hooray for avoiding [vendor lock-in](https://en.wikipedia.org/wiki/Vendor_lock-in)!
 
 ### How to contribute?
 
