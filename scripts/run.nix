@@ -21,6 +21,7 @@
   excludeShellChecks ? [],
   extraShellCheckFlags ? [],
   derivationArgs ? {},
+  cliArgs ? [],
 }: pkgs.writeShellApplication {
   inherit name runtimeInputs runtimeEnv meta passthru derivationArgs;
   checkPhase = let
@@ -55,6 +56,6 @@
     runHook postCheck
   '';
   text = ''
-    "${target}"
+    "${target}" "$@" ${pkgs.lib.strings.concatStringsSep " " cliArgs}
   '';
 }
