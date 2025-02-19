@@ -31,7 +31,29 @@
         start = utils.lib.mkApp { drv = packages.start; };
         default = utils.lib.mkApp { drv = packages.default; };
       };
-      devShells = {};
+      # the default devShell for each module is provided
+      devShells = (pkgs.lib.attrsets.mapAttrs
+        (n: v: v.devShells.default)
+        modules
+      ) // {
+        # the root devShell provides packages used within scripts/
+        root = pkgs.mkShell {
+          packages = [
+            # kill program at <port> using: fuser -k <port>/tcp
+            pkgs.psmisc
+            # run docker containers without starting a daemon
+            pkgs.podman
+          ];
+        };
+        # the default devShell is a combination of every devShell
+        default = pkgs.mkShell {
+          inputsFrom = (
+            pkgs.lib.attrsets.mapAttrsToList
+            (n: v: devShells."${n}")
+            modules
+          ) ++ [ devShells.root ];
+        };
+      };
     }
   );
 }
