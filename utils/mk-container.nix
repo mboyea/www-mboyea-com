@@ -58,17 +58,20 @@
   ensureStopOnExit ? false,
   # ! By default will pass --tty and --interactive to podman because that's the default use case for this utility
   useInteractiveTTY ? true,
+  runtimeInputs ? [],
+  runtimeEnv ? null,
   preStart ? "",
   postStop ? "",
 }: let
   _podmanArgs = podmanArgs
     ++ pkgs.lib.lists.optionals useInteractiveTTY [ "--tty" "--interactive" ]
     ++ pkgs.lib.lists.optionals ensureStopOnExit [ "--cidfile" "\"$container_id_file\"" ];
+  _runtimeInputs = runtimeInputs
+    ++ [ pkgs.podman ];
 in pkgs.writeShellApplication {
   name = "${image.name}-container";
-  runtimeInputs = [
-    pkgs.podman
-  ];
+  runtimeInputs = _runtimeInputs;
+  inherit runtimeEnv;
   text = ''
     # return true if user is root user
     isUserRoot() {

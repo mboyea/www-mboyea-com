@@ -23,10 +23,14 @@
         start = pkgs.callPackage utils/run.nix {
           name = "${name}-${version}-start";
           target = scripts/start.sh;
+          runtimeInputs = [
+            pkgs.expect
+          ];
           runtimeEnv = {
             START_DEV_WEBSERVER = pkgs.lib.getExe modules.sveltekit.packages.dev;
             START_DEV_DATABASE = pkgs.lib.getExe modules.postgres.packages.container;
           };
+          envFiles = [ ".env.development" ];
         };
         default = packages.start.override { cliArgs = [ "dev" ]; };
       };

@@ -1,7 +1,7 @@
 {
   pkgs ? import <nixpkgs> {},
 }: let
-  name = "www-mboyea-com-postgres";
+  name = "www-mboyea-com-database";
   version = "0.17.2";
 in rec {
   packages = {

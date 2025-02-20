@@ -79,12 +79,13 @@ You'll need a [Fly.io] account to deploy.
 You'll need to deploy two apps to Fly.io; one for the Postgres database, and one for the SvelteKit server.
 First you should deploy your database.
 
+- Determine your `<unique_db_name>`.
 - Add to `.env`:
   ```sh
-  FLY_DB_NAME="<unique_db_name>"
-  PGUSER="postgres"
-  PGPASSWORD="<unique_db_password>"
-  PGDATABASE="app-db"
+  FLY_DATABASE_NAME="<unique_db_name>"
+  POSTGRES_PASSWORD="<unique_password>"
+  POSTGRES_WEBSERVER_USERNAME="webserver"
+  POSTGRES_WEBSERVER_PASSWORD="<unique_password>"
   ```
 - Run `nix run .#deploy database`
 - TODO: get credentials, add credentials to .env
@@ -94,7 +95,7 @@ Once your database is deployed (and connection parameters are provided in `.env`
 - Determine your `<unique_app_name>`.
 - Add to `.env`:
   ```sh
-  FLY_APP_NAME="<unique_app_name>"
+  FLY_WEBSERVER_NAME="<unique_app_name>"
   ```
 - Run `flyctl launch --no-deploy --ha=false --name <unique_app_name>`
 - Run `flyctl tokens create deploy` to generate your `<fly_api_token>`.
