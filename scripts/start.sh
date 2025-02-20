@@ -84,6 +84,16 @@ start_processes() {
   "$2"
 }
 
+script_start_prod() {
+  test_env_variables START_PROD_DATABASE START_PROD_WEBSERVER
+  start_processes "$START_PROD_DATABASE" "$START_PROD_WEBSERVER"
+}
+
+script_start_dev() {
+  test_env_variables START_DEV_DATABASE START_DEV_WEBSERVER
+  start_processes "$START_DEV_DATABASE" "$START_DEV_WEBSERVER"
+}
+
 script_start_help() {
   echo "Start the app locally."
   echo
@@ -98,21 +108,12 @@ script_start_help() {
   echo
 }
 
-script_start_dev() {
-  test_env_variables START_DEV_DATABASE START_DEV_WEBSERVER
-  start_processes "$START_DEV_DATABASE" "$START_DEV_WEBSERVER"
-}
-
-script_start_prod() {
-  test_env_variables START_PROD_DATABASE START_PROD_WEBSERVER
-  start_processes "$START_PROD_DATABASE" "$START_PROD_WEBSERVER"
-}
-
+declare script;
+script_args=()
 interpret_script() {
   # if no arguments passed, run the default script
   if [[ $# -eq 0 ]]; then
     script="script_start_help"
-    script_args=()
     return;
   fi
   # otherwise run the script specified by the first argument
@@ -133,10 +134,43 @@ interpret_script() {
     ;;
   esac
   shift
-  script_args=("$@")
+  script_args+=("$@")
+}
+
+go_to_base_directory() {
+  test_commands git
+  # if current directory is not a git directory, return
+  if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    return
+  fi
+  # go to the base of the git directory
+  cd "$(git rev-parse --show-toplevel)"
+}
+
+load_env_files() {
+  # go to base directory
+  go_to_base_directory
+  # for each file
+  while [[ $# -gt 0 ]]; do
+    # if file isn't readable, continue
+    if [ ! -r "$1" ]; then
+      shift
+      continue
+    fi
+    # load file
+    set -a
+    # shellcheck disable=SC1091 source=/dev/null
+    source "$1"
+    set +a
+    shift
+  done
+  # return to last directory
+  cd - > /dev/null
 }
 
 main() {
+  : "${ENV_FILE:=".env.development"}"
+  load_env_files "$ENV_FILE"
   interpret_script "$@"
   "$script" "${script_args[@]}"
 }

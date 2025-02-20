@@ -2,7 +2,9 @@
   pkgs,
   image,
 }: pkgs.callPackage ../../../utils/mk-container.nix {
-  inherit image;
+  imageName = image.name;
+  imageTag = image.tag;
+  imageStream = image.stream;
   podmanArgs = [
     "--network=host"
     "--env" "POSTGRES_WEBSERVER_USERNAME"

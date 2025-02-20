@@ -25,6 +25,7 @@
           target = scripts/start.sh;
           runtimeInputs = [
             pkgs.expect
+            pkgs.git
           ];
           runtimeEnv = {
             START_DEV_DATABASE = pkgs.lib.getExe modules.postgres.packages.container;
@@ -32,13 +33,20 @@
             START_PROD_DATABASE = pkgs.lib.getExe modules.postgres.packages.container;
             START_PROD_WEBSERVER = pkgs.lib.getExe modules.sveltekit.packages.container;
           };
-          envFiles = [ ".env.development" ];
+        };
+        deploy = pkgs.callPackage utils/run.nix {
+          name = "${name}-${version}-deploy";
+          target = scripts/deploy.sh;
+          runtimeInputs = [
+            pkgs.git
+          ];
         };
         default = packages.start.override { cliArgs = [ "dev" ]; };
       };
       apps = {
         help = utils.lib.mkApp { drv = packages.help; };
         start = utils.lib.mkApp { drv = packages.start; };
+        deploy = utils.lib.mkApp { drv = packages.deploy; };
         default = utils.lib.mkApp { drv = packages.default; };
       };
       # the default devShell for each module is provided
@@ -57,39 +65,14 @@
             pkgs.psmisc
             # get information about the project like modified files and 
             pkgs.git
+            # manage deployments on hosting provider Fly.io
+            pkgs.flyctl
           ];
           shellHook = ''
             export START_DEV_DATABASE="${pkgs.lib.getExe modules.postgres.packages.container}"
             export START_DEV_WEBSERVER="${pkgs.lib.getExe modules.sveltekit.packages.dev}"
             export START_PROD_DATABASE="${pkgs.lib.getExe modules.postgres.packages.container}"
             export START_PROD_WEBSERVER="${pkgs.lib.getExe modules.sveltekit.packages.container}"
-            go_to_base_directory() {
-              # if current directory is not a git directory, return
-              if ! "${pkgs.lib.getExe pkgs.git}" rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-                return
-              fi
-              # go to the base of the git directory
-              cd "$("${pkgs.lib.getExe pkgs.git}" rev-parse --show-toplevel)"
-            }
-            load_env_files() {
-              go_to_base_directory
-              # for each file
-              while [[ $# -gt 0 ]]; do
-                # if file isn't readable, continue
-                if [ ! -r "$1" ]; then
-                  shift
-                  continue
-                fi
-                # load file
-                set -a
-                # shellcheck disable=SC1091 source=/dev/null
-                source "$1"
-                set +a
-                shift
-              done
-              cd -
-            }
-            load_env_files ${pkgs.lib.strings.concatStringsSep " " [ ".env.development" ]}
           '';
         };
         # the default devShell is a combination of every devShell

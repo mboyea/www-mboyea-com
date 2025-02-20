@@ -14,4 +14,5 @@ echo
 echo "SCRIPTS:"
 echo "  help    Print this helpful information"
 echo "  start   Start the app locally"
+echo "  deploy  Deploy the app to Fly.io"
 echo

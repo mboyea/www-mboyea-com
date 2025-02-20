@@ -59,10 +59,9 @@ Scripts can be run from within any of the project directories.
 
 | SCRIPT | Description |
 |:--- |:--- |
-| `deploy` | Deploy the app to Fly.io |
 | `help` | Print this helpful information |
 | `start` | Start the app locally |
-| `test` | Test the app is working as expected |
+| `deploy` | Deploy the app to Fly.io |
 
 **Note:** Currently you cannot run scripts that use `podman` to create a container while offline. For more information, see [github.com/containers/podman/issues/23566](https://github.com/containers/podman/issues/23566).
 
@@ -135,15 +134,18 @@ Nix packages a Docker image with this webserver inside.
 
 Source code for the database is in `modules/postgres/`.
 [Postgres] is used to provide a SQL database that best supports concurrency at scale.
-Nix packages a Docker image with this database inside.
 
-Scripts are declared with their dependencies in `flake.nix` and defined in `scripts/`.
-Scripts are used to run development environments, run local copies of the Docker images, and deploy the Docker images to [Fly.io].
-Fly natively supports concurrent postgres instances, and provides some convenient CLI tools for database management.
-It also allows the server to connect to the database over an internal network, so the Postgres database doesn't have to be exposed to the internet.
+Source code for deployment is in `modules/fly/`.
+[Fly.io] is used as a hosting provider for the webserver Docker image and the Postgres database.
+Fly natively supports concurrent Postgres instances, and provides some convenient CLI tools for database management.
+It also allows the webserver to connect to the database over an internal network, so the Postgres database doesn't have to be exposed to the internet.
 These features make Fly an ideal hosting provider for performance and security.
+If I ever decided that Fly was an inferior hosting option, it would be no problem to migrate from their service to another, because you can run Docker containers pretty much anywhere.
+Hooray for avoiding [vendor lock-in](https://en.wikipedia.org/wiki/Vendor_lock-in)!
 
-If I ever decided that Fly was an inferior hosting option, it would be no problem to migrate from their service to another, because you can run Docker containers pretty much anywhere. Hooray for avoiding [vendor lock-in](https://en.wikipedia.org/wiki/Vendor_lock-in)!
+Scripts are defined in `scripts/` and their dependencies are declared in `flake.nix`.
+Scripts are used to run development environments and deploy the application.
+Because scripts consume packages provided by `flake.nix`, if you want to run them directly (like `./scripts/start.sh dev`) you must use `nix develop` or `direnv allow`.
 
 ### How to contribute?
 

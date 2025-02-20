@@ -32,7 +32,9 @@
 #     };
 #   };
 # in pkgs.callPackage utils/mk-container.nix {
-#   image = dockerImage;
+#   imageName = dockerImage.name;
+#   imageTag = dockerImage.tag;
+#   imageStream = dockerImage.stream;
 #   podmanArgs = [
 #     "--network=host"
 #   ];
@@ -42,7 +44,9 @@
 #----------------------------------------
 {
   pkgs,
-  image,
+  imageName,
+  imageTag,
+  imageStream ? null,
   podmanArgs ? [],
   defaultImageArgs ? [],
   # ? https://forums.docker.com/t/solution-required-for-nginx-emerg-bind-to-0-0-0-0-443-failed-13-permission-denied/138875/2
@@ -69,7 +73,7 @@
   _runtimeInputs = runtimeInputs
     ++ [ pkgs.podman ];
 in pkgs.writeShellApplication {
-  name = "${image.name}-container";
+  name = "${imageName}-container";
   runtimeInputs = _runtimeInputs;
   inherit runtimeEnv;
   text = ''
@@ -111,7 +115,9 @@ in pkgs.writeShellApplication {
     }
 
     # load the image into podman
-    echo_exec ${image.stream} | echo_exec podman image load
+    if "${pkgs.lib.trivial.boolToString (imageStream != null)}"; then
+      echo_exec ${imageStream} | echo_exec podman image load
+    fi
 
     # declare the image arguments
     if [ "$#" -gt 0 ]; then
@@ -123,7 +129,7 @@ in pkgs.writeShellApplication {
     # run the image using podman
     echo_exec podman container run \
       ${pkgs.lib.strings.concatStringsSep " " _podmanArgs} \
-      localhost/${image.name}:${image.tag} \
+      localhost/${imageName}:${imageTag} \
       "''${image_args[@]}"
   '';
 }

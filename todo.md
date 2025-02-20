@@ -18,6 +18,7 @@ default_: todo
 - [ ] (A) 2024-02-28 Complete `modules/sveltekit/src/` @code
 - [ ] (A) 2024-02-25 Complete `modules/postgres/schema/` @code
 - [ ] (A) 2024-02-23 Complete `nix run .#deploy` @code
+- [x] (A) 2024-02-20 Draft `nix run .#deploy help` @code @docs
 - [x] (A) 2024-02-19 Complete `nix run .#start` @code
 - [x] (A) 2024-02-19 Draft `nix run .#start dev` @code
 - [x] (B) 2024-02-19 Test direnv @code @test
