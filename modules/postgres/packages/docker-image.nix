@@ -23,8 +23,8 @@ in {
     inherit tag;
     fromImage = baseImage;
     config = {
-      Cmd = [ "postgres" ];
       Entrypoint = [ "docker-entrypoint.sh" ];
+      Cmd = [ "postgres" ];
       ExposedPorts = {
         "5432/tcp" = {};
       };

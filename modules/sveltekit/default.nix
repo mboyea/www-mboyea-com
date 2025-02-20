@@ -12,14 +12,14 @@ in rec {
     preview = pkgs.callPackage ./packages/prod.nix {
       inherit name version;
     };
-    server = pkgs.callPackage ./packages/server.nix {
+    app = pkgs.callPackage ./packages/app.nix {
       inherit name version;
     };
     dockerImage = pkgs.callPackage ./packages/docker-image.nix {
       inherit name version;
-      server = packages.server;
+      app = packages.app;
     };
-    container = pkgs.callPackage ../../utils/mk-container.nix {
+    container = pkgs.callPackage ./packages/container.nix {
       image = packages.dockerImage;
     };
   };

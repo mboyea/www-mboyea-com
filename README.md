@@ -64,6 +64,8 @@ Scripts can be run from within any of the project directories.
 | `start` | Start the app locally |
 | `test` | Test the app is working as expected |
 
+**Note:** Currently you cannot run scripts that use `podman` to create a container while offline. For more information, see [github.com/containers/podman/issues/23566](https://github.com/containers/podman/issues/23566).
+
 #### Deployment (Fly.io)
 
 During the first deployment, secret credentials will be stored in a file named `.env`.
@@ -127,8 +129,6 @@ Test this process first using `nix run .#start prod` and `psql -U=$TODO -W=$TODO
 - Expose the required packages, images, and dependencies to shell scripts that test and deploy the packages.
 - Expose the environment and scripts to the developer.
 
-Scripts and dependencies are declared in `flake.nix` and defined in `scripts/`.
-
 Source code for the web server is in `modules/sveltekit/`.
 [SvelteKit] is used to build a [Node.js] server, making use of [Sass] for superior CSS features and [TypeScript] for type security in both the front-end and back-end of the server.
 Nix packages a Docker image with this webserver inside.
@@ -137,7 +137,8 @@ Source code for the database is in `modules/postgres/`.
 [Postgres] is used to provide a SQL database that best supports concurrency at scale.
 Nix packages a Docker image with this database inside.
 
-Then scripts are used to run the Docker images locally, or deploy them to the public on [Fly.io].
+Scripts are declared with their dependencies in `flake.nix` and defined in `scripts/`.
+Scripts are used to run development environments, run local copies of the Docker images, and deploy the Docker images to [Fly.io].
 Fly natively supports concurrent postgres instances, and provides some convenient CLI tools for database management.
 It also allows the server to connect to the database over an internal network, so the Postgres database doesn't have to be exposed to the internet.
 These features make Fly an ideal hosting provider for performance and security.

@@ -2,7 +2,7 @@
   pkgs,
   name,
   version,
-  server ? pkgs.callPackage ./server.nix { inherit name version; },
+  app,
 }: let
   _name = "${name}-docker-image";
   tag = version;
@@ -14,12 +14,12 @@ in {
     name = _name;
     inherit tag;
     fromImage = baseImage;
-    contents = [ server ];
     config = {
-      # TODO: configure image
-      Cmd = [];
       Entrypoint = [];
-      ExposedPorts = {};
+      Cmd = [ "${pkgs.lib.getExe app}" ];
+      ExposedPorts = {
+        "3000/tcp" = {};
+      };
     };
   };
 }

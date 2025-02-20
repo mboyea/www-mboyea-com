@@ -81,6 +81,7 @@
         set +a
         shift
       done
+      cd -
     }
     load_env_files ${pkgs.lib.strings.concatStringsSep " " envFiles}
     "${target}" "$@" ${pkgs.lib.strings.concatStringsSep " " cliArgs}

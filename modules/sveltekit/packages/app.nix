@@ -5,23 +5,23 @@
   version,
   runtimeShell ? pkgs.runtimeShell,
 }: let
-  _name = "${name}-server";
+  _name = "${name}-app";
 in pkgs.buildNpmPackage {
   pname = _name;
   inherit version;
   src = ../.;
   # Generate a new dependency hash using:
   #   prefetch-npm-deps path/to/sveltekit/package-lock.json
-  npmDepsHash = ""; # TODO: generate hash
+  npmDepsHash = "sha256-1IXqdDO2TcPojNwQwVQq/+blV7qEjMloo96eC0X7c+s=";
   npmBuildScript = "build";
   installPhase = ''
-    mkdir -p $out/bin $out/lib
-    cp -rv {build,node_modules,package.json} $out/lib
-    cat > $out/bin/${pname} <<- EOF
-      #!${runtimeShell}
-      ${pkgs.lib.getExe pkgs.nodejs} $out/lib/build
+    mkdir -p "$out/bin" "$out/lib"
+    cp -rv {build,node_modules,package.json} "$out/lib"
+    cat > $out/bin/${_name} << EOF
+    #!${runtimeShell}
+    "${pkgs.lib.getExe pkgs.nodejs}" "$out/lib/build"
     EOF
-    chmod +x $out/bin/${pname}
+    chmod +x $out/bin/${_name}
   '';
-  meta.mainProgram = "${pname}";
+  meta.mainProgram = "${_name}";
 }
