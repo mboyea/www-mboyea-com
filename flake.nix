@@ -24,8 +24,8 @@
           name = "${name}-${version}-start";
           target = scripts/start.sh;
           runtimeInputs = [
-            pkgs.expect
             pkgs.git
+            pkgs.expect
           ];
           runtimeEnv = {
             START_DEV_DATABASE = pkgs.lib.getExe modules.postgres.packages.container;
@@ -39,7 +39,15 @@
           target = scripts/deploy.sh;
           runtimeInputs = [
             pkgs.git
+            pkgs.flyctl
+            pkgs.gzip
+            pkgs.skopeo
           ];
+          runtimeEnv = {
+            WEBSERVER_IMAGE_NAME = modules.sveltekit.packages.dockerImage.name;
+            WEBSERVER_IMAGE_TAG = modules.sveltekit.packages.dockerImage.tag;
+            WEBSERVER_IMAGE_STREAM = modules.sveltekit.packages.dockerImage.stream;
+          };
         };
         default = packages.start.override { cliArgs = [ "dev" ]; };
       };
@@ -67,6 +75,10 @@
             pkgs.git
             # manage deployments on hosting provider Fly.io
             pkgs.flyctl
+            # zip Docker images for deployment
+            pkgs.gzip
+            # deploy Docker images to a remote server
+            pkgs.skopeo
           ];
           shellHook = ''
             export START_DEV_DATABASE="${pkgs.lib.getExe modules.postgres.packages.container}"

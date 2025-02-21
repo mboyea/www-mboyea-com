@@ -67,54 +67,40 @@ Scripts can be run from within any of the project directories.
 
 #### Deployment (Fly.io)
 
-During the first deployment, secret credentials will be stored in a file named `.env`.
-This file can never be public.
+You'll need to be signed into a [Fly.io] account to deploy.
 
-- Create a file named `.env` in the root directory.
-
-You'll need a [Fly.io] account to deploy.
-
-- [Make a Fly.io account](https://fly.io/dashboard). Link your payment method in the account.
+- [Make a Fly.io account](https://fly.io/dashboard).
+  Link your payment method in the account.
 - Run `flyctl auth login`
 
-You'll need to deploy two apps to Fly.io; one for the Postgres database, and one for the SvelteKit server.
-First you should deploy your database.
+Secret deployment credentials will be stored in the file `.env`.
+The contents of this file can never be revealed publicly, so be careful to only share its contents with other developers.
 
-- Determine your `<unique_db_name>`.
+- Create a file named `.env` in the root directory.
 - Add to `.env`:
   ```sh
-  FLY_DATABASE_NAME="<unique_db_name>"
+  FLY_APP_NAME="<unique_app_name>"
+  FLY_DB_NAME="<unique_app_name>"
   POSTGRES_PASSWORD="<unique_password>"
-  POSTGRES_WEBSERVER_USERNAME="webserver"
   POSTGRES_WEBSERVER_PASSWORD="<unique_password>"
   ```
-- Run `nix run .#deploy database`
-- TODO: get credentials, add credentials to .env
+- Run `nix run .#deploy all`
 
-Once your database is deployed (and connection parameters are provided in `.env`), you can deploy the server.
+The application will perform its first deployment.
+It may hang while deploying the webserver for the first time, but this is just a byproduct of waiting for Fly to initialize the application.
+With patience, your server should deploy and you can visit the app online!
 
-- Determine your `<unique_app_name>`.
-- Add to `.env`:
-  ```sh
-  FLY_WEBSERVER_NAME="<unique_app_name>"
-  ```
-- Run `flyctl launch --no-deploy --ha=false --name <unique_app_name>`
-- Run `flyctl tokens create deploy` to generate your `<fly_api_token>`.
-- Add to `.env`:
-  ```sh
-  FLY_API_TOKEN="<fly_api_token>"
-  ```
-- Run `nix run .#deploy server secrets`
+You can re-deploy after making changes to the database, server, or secrets with the same `.#deploy` command.
+
+- `nix run .#deploy all`
+- `nix run .#deploy secrets`
+- `nix run .#deploy database webserver`
 
 **If you ever modify the design of an existing database table, you must manually convert the old table before redeploying.**
-Test this process first using `nix run .#start prod` and `psql -U=$TODO -W=$TODO`.
+It is recommended that you first test the conversion process on a fake database using `nix run .#start prod` and `psql`.
 
-- Run `flyctl postgres connect --user $TODO --password $TODO`
+- Run `flyctl postgres connect --user postgres --password <unique_password>`
 - Modify the old table using [ALTER TABLE](https://www.postgresql.org/docs/current/sql-altertable.html).
-
-*As long as your existing database doesn't contain conflicting tables*, you should be able to re-deploy after making changes to the server or database like usual.
-
-- Run `nix run .#deploy all`
 
 ## FAQ
 
@@ -137,7 +123,7 @@ Source code for the database is in `modules/postgres/`.
 
 Source code for deployment is in `modules/fly/`.
 [Fly.io] is used as a hosting provider for the webserver Docker image and the Postgres database.
-Fly natively supports concurrent Postgres instances, and provides some convenient CLI tools for database management.
+Fly natively supports concurrent Postgres instances, and provides some [convenient CLI tools](https://fly.io/docs/flyctl/postgres/) for database management.
 It also allows the webserver to connect to the database over an internal network, so the Postgres database doesn't have to be exposed to the internet.
 These features make Fly an ideal hosting provider for performance and security.
 If I ever decided that Fly was an inferior hosting option, it would be no problem to migrate from their service to another, because you can run Docker containers pretty much anywhere.

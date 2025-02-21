@@ -12,7 +12,7 @@ echo "  nix run .#[SCRIPT] help | Print usage information about a script"
 echo "  nix develop             | Start a subshell with the software dependencies installed"
 echo
 echo "SCRIPTS:"
-echo "  help    Print this helpful information"
-echo "  start   Start the app locally"
-echo "  deploy  Deploy the app to Fly.io"
+echo "  help   | Print this helpful information"
+echo "  start  | Start the app locally"
+echo "  deploy | Deploy the app to Fly.io"
 echo

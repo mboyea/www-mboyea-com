@@ -41,6 +41,37 @@ test_env_variables() {
   if $exit; then exit 1; fi
 }
 
+go_to_base_directory() {
+  test_commands git
+  # if current directory is not a git directory, return
+  if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    return
+  fi
+  # go to the base of the git directory
+  cd "$(git rev-parse --show-toplevel)"
+}
+
+load_env_files() {
+  # go to base directory
+  go_to_base_directory
+  # for each file
+  while [[ $# -gt 0 ]]; do
+    # if file isn't readable, continue
+    if [ ! -r "$1" ]; then
+      shift
+      continue
+    fi
+    # load file
+    set -a
+    # shellcheck disable=SC1091 source=/dev/null
+    source "$1"
+    set +a
+    shift
+  done
+  # return to last directory
+  cd - > /dev/null
+}
+
 process_ids=()
 kill_processes() {
   local flags=$-
@@ -59,7 +90,8 @@ kill_processes() {
 # expects $1 to start a postgres database and $2 to start a webserver
 start_processes() {
   test_commands unbuffer
-  test_env_variables POSTGRES_PASSWORD POSTGRES_WEBSERVER_USERNAME POSTGRES_WEBSERVER_PASSWORD
+  test_env_variables POSTGRES_PASSWORD POSTGRES_WEBSERVER_PASSWORD
+  : "${POSTGRES_WEBSERVER_USERNAME:="webserver"}"
   trap kill_processes EXIT
   # start database as background process
   database_log_file="$(mktemp)"
@@ -102,7 +134,7 @@ script_start_help() {
   echo "  nix run .#start [SCRIPT] | Run the specified script"
   echo
   echo "SCRIPTS:"
-  echo "  help --help -h | Print this helpful information"
+  echo "  help|--help|-h | Print this helpful information"
   echo "  dev            | Start each server using devtools"
   echo "  prod           | Start each server image in a container, as similar to the production server as possible"
   echo
@@ -137,40 +169,9 @@ interpret_script() {
   script_args+=("$@")
 }
 
-go_to_base_directory() {
-  test_commands git
-  # if current directory is not a git directory, return
-  if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-    return
-  fi
-  # go to the base of the git directory
-  cd "$(git rev-parse --show-toplevel)"
-}
-
-load_env_files() {
-  # go to base directory
-  go_to_base_directory
-  # for each file
-  while [[ $# -gt 0 ]]; do
-    # if file isn't readable, continue
-    if [ ! -r "$1" ]; then
-      shift
-      continue
-    fi
-    # load file
-    set -a
-    # shellcheck disable=SC1091 source=/dev/null
-    source "$1"
-    set +a
-    shift
-  done
-  # return to last directory
-  cd - > /dev/null
-}
-
 main() {
-  : "${ENV_FILE:=".env.development"}"
-  load_env_files "$ENV_FILE"
+  : "${START_ENV_FILE:=".env.development"}"
+  load_env_files "$START_ENV_FILE"
   interpret_script "$@"
   "$script" "${script_args[@]}"
 }
