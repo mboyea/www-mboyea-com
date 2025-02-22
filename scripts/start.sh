@@ -91,7 +91,10 @@ kill_processes() {
 start_processes() {
   test_commands unbuffer
   test_env_variables POSTGRES_PASSWORD POSTGRES_WEBSERVER_PASSWORD
+  set -a
   : "${POSTGRES_WEBSERVER_USERNAME:="webserver"}"
+  : "${POSTGRES_DATABASE_MAIN:="main"}"
+  set +a
   trap kill_processes EXIT
   # start database as background process
   database_log_file="$(mktemp)"

@@ -97,7 +97,7 @@ You can re-deploy after making changes to the database, server, or secrets with 
 - `nix run .#deploy database webserver`
 
 **If you ever modify the design of an existing database table, you must manually convert the old table before redeploying.**
-It is recommended that you first test the conversion process on a fake database using `nix run .#start prod` and `psql`.
+It is recommended that you first test the conversion process on a fake database using `nix run .#start prod` and `psql -h localhost -U postgres`.
 
 - Run `flyctl postgres connect --user postgres --password <unique_password>`
 - Modify the old table using [ALTER TABLE](https://www.postgresql.org/docs/current/sql-altertable.html).

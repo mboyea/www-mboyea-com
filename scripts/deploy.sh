@@ -87,6 +87,7 @@ script_stage_secrets() {
   : "${POSTGRES_NETLOC:="$FLY_DB_NAME.flycast"}"
   # get webserver secrets
   webserver_env=(
+    POSTGRES_DATABASE_MAIN
     POSTGRES_WEBSERVER_USERNAME
     POSTGRES_WEBSERVER_PASSWORD
     POSTGRES_NETLOC
@@ -199,6 +200,7 @@ main() {
   : "${FLY_TOML_FILE:="fly.toml"}"
   : "${FLY_ORGANIZATION:="personal"}"
   : "${POSTGRES_WEBSERVER_USERNAME:="webserver"}"
+  : "${POSTGRES_DATABASE_MAIN:="main"}"
   : "${POSTGRES_PORT:="5432"}"
   interpret_script "$@"
   for script in "${scripts[@]}"; do

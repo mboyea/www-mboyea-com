@@ -72,10 +72,11 @@
     ++ pkgs.lib.lists.optionals ensureStopOnExit [ "--cidfile" "\"$container_id_file\"" ];
   _runtimeInputs = runtimeInputs
     ++ [ pkgs.podman ];
+  _runtimeEnv = runtimeEnv;
 in pkgs.writeShellApplication {
   name = "${imageName}-container";
   runtimeInputs = _runtimeInputs;
-  inherit runtimeEnv;
+  runtimeEnv = _runtimeEnv;
   text = ''
     # return true if user is root user
     isUserRoot() {
@@ -89,9 +90,6 @@ in pkgs.writeShellApplication {
         exit
       fi
     fi
-
-    # run pre start functions
-    ${preStart}
 
     # run post stop functions when this script exits
     container_id_file="$(mktemp)"
@@ -118,6 +116,9 @@ in pkgs.writeShellApplication {
     if "${pkgs.lib.trivial.boolToString (imageStream != null)}"; then
       echo_exec ${imageStream} | echo_exec podman image load
     fi
+
+    # run pre start functions
+    ${preStart}
 
     # declare the image arguments
     if [ "$#" -gt 0 ]; then
