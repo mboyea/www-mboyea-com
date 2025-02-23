@@ -18,7 +18,7 @@ default_: todo
 - [ ] (A) 2024-03-01 Announce release +1.0.0 @docs
 - [ ] (A) 2024-02-28 Complete `modules/sveltekit/src/` @code
 - [ ] (A) 2024-02-25 Complete `modules/postgres/schema/` @code
-- [ ] (A) 2024-02-__ Draft `nix run .#deploy` database initialization @code
+- [x] (A) 2024-02-22 Draft `nix run .#deploy` database initialization @code
 - [x] (A) 2024-02-21 Draft `nix run .#start` database initialization @code
 - [x] (A) 2024-02-20 Complete `nix run .#deploy` @code
 - [x] (A) 2024-02-20 Draft `nix run .#deploy help` @code @docs

@@ -32,6 +32,7 @@
             START_DEV_WEBSERVER = pkgs.lib.getExe modules.sveltekit.packages.dev;
             START_PROD_DATABASE = pkgs.lib.getExe modules.postgres.packages.container;
             START_PROD_WEBSERVER = pkgs.lib.getExe modules.sveltekit.packages.container;
+            START_ENV_FILE = ".env.development";
           };
         };
         deploy = pkgs.callPackage utils/run.nix {
@@ -47,6 +48,8 @@
             WEBSERVER_IMAGE_NAME = modules.sveltekit.packages.dockerImage.name;
             WEBSERVER_IMAGE_TAG = modules.sveltekit.packages.dockerImage.tag;
             WEBSERVER_IMAGE_STREAM = modules.sveltekit.packages.dockerImage.stream;
+            DEPLOY_ENV_FILE = ".env";
+            POSTGRES_SCHEMA_FILE = "modules/postgres/schema/init.sql";
           };
         };
         default = packages.start.override { cliArgs = [ "dev" ]; };
@@ -85,6 +88,12 @@
             export START_DEV_WEBSERVER="${pkgs.lib.getExe modules.sveltekit.packages.dev}"
             export START_PROD_DATABASE="${pkgs.lib.getExe modules.postgres.packages.container}"
             export START_PROD_WEBSERVER="${pkgs.lib.getExe modules.sveltekit.packages.container}"
+            export WEBSERVER_IMAGE_NAME="${modules.sveltekit.packages.dockerImage.name}"
+            export WEBSERVER_IMAGE_TAG="${modules.sveltekit.packages.dockerImage.tag}"
+            export WEBSERVER_IMAGE_STREAM="${modules.sveltekit.packages.dockerImage.stream}"
+            export DATABASE_IMAGE_NAME="${modules.sveltekit.packages.dockerImage.name}"
+            export DATABASE_IMAGE_TAG="${modules.sveltekit.packages.dockerImage.tag}"
+            export DATABASE_IMAGE_STREAM="${modules.sveltekit.packages.dockerImage.stream}"
           '';
         };
         # the default devShell is a combination of every devShell

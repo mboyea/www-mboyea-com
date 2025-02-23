@@ -80,13 +80,12 @@ verify_fly_app_created() {
   fi
 }
 
-script_stage_secrets() {
+stage_webserver_secrets() {
   test_env_variables FLY_APP_NAME FLY_DB_NAME POSTGRES_WEBSERVER_PASSWORD
-  echo "Deploying secrets..."
+  echo "Uploading webserver secrets..."
   verify_fly_app_created "$FLY_APP_NAME"
   : "${POSTGRES_NETLOC:="$FLY_DB_NAME.flycast"}"
-  # get webserver secrets
-  webserver_env=(
+  local webserver_env=(
     POSTGRES_DATABASE_MAIN
     POSTGRES_WEBSERVER_USERNAME
     POSTGRES_WEBSERVER_PASSWORD
@@ -96,42 +95,67 @@ script_stage_secrets() {
   for i in "${!webserver_env[@]}"; do
     webserver_env[i]="${webserver_env[i]}=${!webserver_env[i]}"
   done
-  # stage webserver secrets
   flyctl secrets set --app "$FLY_APP_NAME" --stage "${webserver_env[@]}"
 }
 
 script_deploy_secrets() {
-  script_stage_secrets
-  # deploy webserver secrets
+  stage_webserver_secrets
   flyctl secrets deploy --app "$FLY_APP_NAME"
 }
 
 script_deploy_webserver() {
   test_commands gzip skopeo
   test_env_variables FLY_APP_NAME WEBSERVER_IMAGE_STREAM WEBSERVER_IMAGE_TAG
-  echo "Deploying webserver..."
+  echo "Deploying webserver."
   verify_fly_app_created "$FLY_APP_NAME"
   : "${FLY_API_TOKEN:="$(flyctl tokens create deploy --app "$FLY_APP_NAME" --expiry 0h10m0s)"}"
-  # deploy docker image to fly registry
+  echo "Uploading webserver image..."
   "$WEBSERVER_IMAGE_STREAM" | gzip --fast | skopeo --insecure-policy copy --dest-creds="x:$FLY_API_TOKEN" "docker-archive:/dev/stdin" "docker://registry.fly.io/$FLY_APP_NAME:$WEBSERVER_IMAGE_TAG"
-  # load docker image on fly server
+  echo "Loading webserver image..."
   go_to_base_directory
   flyctl deploy --app "$FLY_APP_NAME" -c "$FLY_TOML_FILE" -i "registry.fly.io/$FLY_APP_NAME:$WEBSERVER_IMAGE_TAG"
   cd - > /dev/null
 }
 
 script_deploy_database() {
-  test_env_variables FLY_DB_NAME POSTGRES_PASSWORD
-  echo "Deploying database..."
+  test_env_variables FLY_DB_NAME POSTGRES_PASSWORD POSTGRES_SCHEMA_FILE POSTGRES_WEBSERVER_PASSWORD
+  echo "Deploying database."
   if ! flyctl postgres list | tail -n +2 | grep -q "^$FLY_DB_NAME"; then
     flyctl postgres create --org "$FLY_ORGANIZATION" --name "$FLY_DB_NAME" --password "$POSTGRES_PASSWORD"
   fi
-  # TODO: execute modules/postgres/schema/ in database
+  if ! flyctl postgres list | grep -q "^$FLY_DB_NAME.*deployed"; then
+    local machine_to_start
+    machine_to_start=$( \
+      flyctl machine list --app "$FLY_DB_NAME" \
+      | sed -n '/ID/,$p' \
+      | head -n 2 \
+      | tail -n 1 \
+      | { read -r first rest; echo "$first"; } \
+    )
+    fly machine start --app "$FLY_DB_NAME" "$machine_to_start"
+    # ? wait until started: fly machine status --app "$FLY_DB_NAME" "$machine_to_start"
+  fi
+  echo "Uploading database secrets..."
+  local database_env=(
+    POSTGRES_DATABASE_MAIN
+    POSTGRES_WEBSERVER_USERNAME
+    POSTGRES_WEBSERVER_PASSWORD
+  )
+  for i in "${!database_env[@]}"; do
+    database_env[i]="${database_env[i]}=${!database_env[i]}"
+  done
+  flyctl secrets set --app "$FLY_DB_NAME" --stage "${database_env[@]}"
+  flyctl secrets deploy --app "$FLY_DB_NAME"
+  echo "Uploading database schema..."
+  { echo "rm -rf 'init.sql'"; echo "exit"; } | flyctl ssh console --app "$FLY_DB_NAME"
+  echo "put '$POSTGRES_SCHEMA_FILE' 'init.sql'" | flyctl ssh sftp shell --app "$FLY_DB_NAME"
+  echo "Executing database schema..."
+  { echo "\i init.sql"; echo "\q"; } | flyctl postgres connect --app "$FLY_DB_NAME" --password "$POSTGRES_PASSWORD"
 }
 
 script_deploy_all() {
   script_deploy_database
-  script_stage_secrets
+  stage_webserver_secrets
   script_deploy_webserver
 }
 
