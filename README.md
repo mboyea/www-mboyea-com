@@ -103,7 +103,7 @@ It is recommended that you first test the conversion process on a fake database 
 - Modify the old table using [ALTER TABLE](https://www.postgresql.org/docs/current/sql-altertable.html).
 
 After initial deployment, you can use [flyctl](https://fly.io/docs/flyctl/) to manage your deployed servers.
-Or visit [fly.io/dashboard](https://fly.io/dashboard)
+Or visit [fly.io/dashboard](https://fly.io/dashboard).
 
 ## FAQ
 
