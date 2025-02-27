@@ -102,6 +102,9 @@ It is recommended that you first test the conversion process on a fake database 
 - Run `flyctl postgres connect --user postgres --password <unique_password>`
 - Modify the old table using [ALTER TABLE](https://www.postgresql.org/docs/current/sql-altertable.html).
 
+After initial deployment, you can use [flyctl](https://fly.io/docs/flyctl/) to manage your deployed servers.
+Or visit [fly.io/dashboard](https://fly.io/dashboard)
+
 ## FAQ
 
 ### How does it work?
