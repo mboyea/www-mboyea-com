@@ -1,0 +1,21 @@
+:root {
+	--default-font: Verdana, sans-serif;
+	--title-font: 'Trebuchet MS', sans-serif;
+	--brand-font: Georgia, 'Times New Roman', Times, serif;
+
+	--color-light: #eeeeee;
+	--color-light-dark: #aeaeae;
+	--color-dark: #181818;
+	--color-dark-light: #2b2b2b;
+	--color-accent-green-light: #33e343;
+	--color-accent-green: #33b343;
+	--color-accent-green-dark: #339343;
+
+	--default-link-color: #eeeeee;
+	--default-link-hover-color: #eeeeee;
+	--default-link-click-color: #eeeeee;
+}
+* {
+  // "box-sizing: border-content" as the default behavior was a mistake: https://wiki.csswg.org/ideas/mistakes
+	box-sizing: border-box;
+}
