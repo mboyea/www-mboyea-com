@@ -1,18 +1,21 @@
 <script lang="ts">
   import './+layout.scss'
+  import TheNav from '$lib/modules/TheNav.svelte';
+    import TheNavSkipButton from '$lib/modules/TheNavSkipButton.svelte';
   let currentYear: number = new Date().getFullYear();
 </script>
 
 <header id="page-header">
-  <p>Insert header here.</p>
+  <TheNavSkipButton targetId="page-main" />
+  <TheNav />
 </header>
 
-<div id="page-main">
+<div id="page-main" tabindex="-1">
   <slot />
 </div>
 
 <footer id="page-footer">
-  <p>Built with 🧡 using SvelteKit | View source in <a href="https://github.com/mboyea/www-mboyea-com">GitHub</a></p>
+  <p>Built with 🧡 using SvelteKit | View source at <a href="https://github.com/mboyea/www-mboyea-com">GitHub</a></p>
   <p>© {currentYear} Matthew Terrance Carlos Boyea</p>
 </footer>
 
@@ -23,8 +26,7 @@
   :global(body) {
     display: flex;
     flex-direction: column;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
   }
   #page-header {
     flex: 0 0;

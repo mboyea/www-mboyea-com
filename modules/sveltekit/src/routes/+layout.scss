@@ -10,12 +10,59 @@
 	--color-accent-green-light: #33e343;
 	--color-accent-green: #33b343;
 	--color-accent-green-dark: #339343;
-
-	--default-link-color: #eeeeee;
-	--default-link-hover-color: #eeeeee;
-	--default-link-click-color: #eeeeee;
 }
+@mixin dark-theme {
+  --color-bg: var(--color-dark);
+  --color-fg: var(--color-light);
+}
+@mixin light-theme {
+  --color-bg: var(--color-light);
+  --color-fg: var(--color-dark);
+}
+// use dark theme by default
+:root { @include dark-theme; }
+// use light theme if user browser has that preference
+@media (prefers-color-scheme: light) { :root { @include light-theme; } }
+// use dark theme if override set (by JavaScript)
+[data-theme="dark"] { @include dark-theme; }
+// use light theme if override set (by JavaScript)
+[data-theme="light"] { @include light-theme; }
 * {
-  // "box-sizing: border-content" as the default behavior was a mistake: https://wiki.csswg.org/ideas/mistakes
+  font-family: var(--default-font);
+  color: var(--color-fg);
+  background-color: var(--color-bg);
+  font-size: 1.2rem;
+  // "box-sizing: border-content" as the default behavior was a mistake
+	// see: https://wiki.csswg.org/ideas/mistakes
 	box-sizing: border-box;
+}
+h6, h5, h4, h3, h2, h1 {
+	font-family: var(--title-font);
+}
+h6 {
+	font-size: 1.2rem;
+	font-style: italic;
+}
+h5 {
+	font-size: 1.3rem;
+	font-weight: bold;
+}
+h4 {
+	font-size: 1.6rem;
+}
+h3 {
+	font-size: 2.2rem;
+}
+h2 {
+	font-size: 3.4rem;
+}
+h1 {
+	font-size: 4.2rem;
+}
+a {
+	// long links are common, so we should break them
+	overflow-wrap: break-word;
+}
+code {
+	font-family: monospace;
 }
