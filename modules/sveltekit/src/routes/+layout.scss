@@ -1,23 +1,32 @@
 :root {
-	--default-font: Verdana, sans-serif;
-	--title-font: 'Trebuchet MS', sans-serif;
-	--brand-font: Georgia, 'Times New Roman', Times, serif;
+  --default-font: Verdana, sans-serif;
+  --title-font: 'Trebuchet MS', sans-serif;
+  --brand-font: Georgia, 'Times New Roman', Times, serif;
 
-	--color-light: #eeeeee;
-	--color-light-dark: #aeaeae;
-	--color-dark: #181818;
-	--color-dark-light: #2b2b2b;
-	--color-accent-green-light: #33e343;
-	--color-accent-green: #33b343;
-	--color-accent-green-dark: #339343;
+  --color-light: #eeeeee;
+  --color-light-dark: #aeaeaa;
+  --color-dark: #181818;
+  --color-dark-light: #2b2b2f;
 }
 @mixin dark-theme {
   --color-bg: var(--color-dark);
+  --color-bg-alt: var(--color-dark-light);
   --color-fg: var(--color-light);
+  --color-fg-alt: var(--color-light-dark);
+  --color-blue: #3390ff;
+  --color-blue-alt: #1155c0;
+  --color-green: #33e343;
+  --color-green-alt: #33b343;
 }
 @mixin light-theme {
   --color-bg: var(--color-light);
+  --color-bg-alt: var(--color-light-dark);
   --color-fg: var(--color-dark);
+  --color-fg-alt: var(--color-dark-light);
+  --color-blue: #007bff;
+  --color-blue-alt: #0050a0;
+  --color-green: #33b343;
+  --color-green-alt: #339343;
 }
 // use dark theme by default
 :root { @include dark-theme; }
@@ -30,39 +39,97 @@
 * {
   font-family: var(--default-font);
   color: var(--color-fg);
-  background-color: var(--color-bg);
   font-size: 1.2rem;
   // "box-sizing: border-content" as the default behavior was a mistake
 	// see: https://wiki.csswg.org/ideas/mistakes
 	box-sizing: border-box;
+  // typically, margin shouldn't be used to place elements
+  // see: https://dev.to/moruno21/dont-use-margin-in-css-33f9
+  // in typography, margin shouldn't be used on text elements for spacing either
+  // see: https://mxstbr.com/thoughts/margin
+  // ? margin: 0;
 }
-h6, h5, h4, h3, h2, h1 {
+body {
+  background-color: var(--color-bg);
+}
+h6, h5, h4, h3, h2 {
 	font-family: var(--title-font);
 }
-h6 {
-	font-size: 1.2rem;
-	font-style: italic;
-}
-h5 {
-	font-size: 1.3rem;
-	font-weight: bold;
-}
-h4 {
-	font-size: 1.6rem;
-}
-h3 {
-	font-size: 2.2rem;
-}
-h2 {
-	font-size: 3.4rem;
-}
 h1 {
-	font-size: 4.2rem;
+  font-family: var(--brand-font);
 }
+// h6 {
+// 	font-size: 1.2rem;
+// 	font-style: italic;
+// }
+// h5 {
+// 	font-size: 1.3rem;
+// 	font-weight: bold;
+// }
+// h4 {
+// 	font-size: 1.6rem;
+// }
+// h3 {
+// 	font-size: 2.2rem;
+// }
+// h2 {
+// 	font-size: 3.4rem;
+// }
+// h1 {
+// 	font-size: 4.2rem;
+// }
 a {
-	// long links are common, so we should break them
-	overflow-wrap: break-word;
+  // long links are common, so we should break them
+  overflow-wrap: break-word;
+  color: var(--color-blue);
+  text-decoration: none;
+  &:visited {
+    color: var(--color-blue)
+  }
+  &:hover {
+    text-decoration: underline;
+  }
+  &:focus {
+    outline: none;
+    text-decoration: underline;
+    color: var(--color-blue-alt);
+  }
+  &:active {
+    color: var(--color-blue-alt);
+  }
 }
 code {
 	font-family: monospace;
+}
+section {
+  padding: 1px 0 1px 0;
+}
+#featured-image, .background-image {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('$lib/imgs/default-background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: brightness(70%) blur(2px);
+  }
+}
+.centered {
+  text-align: center;
+}
+.banner {
+  // background-color: var(--color-bg-alt);
+  border-top: 1px var(--color-bg-alt) solid;
+  border-bottom: 1px var(--color-bg-alt) solid;
 }

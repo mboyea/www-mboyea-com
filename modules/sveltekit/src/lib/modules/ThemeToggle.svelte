@@ -80,8 +80,8 @@
       right: 0;
       bottom: 0;
       border-radius: 34px;
-      background-color: #cccccc;
-      &:before {
+      background-color: var(--color-bg-alt);
+      &::before {
         position: absolute;
         content: "";
         height: 26px;
@@ -89,18 +89,20 @@
         left: 4px;
         bottom: 4px;
         border-radius: 50%;
-        background-color: white;
+        background-color: var(--color-light);
       }
     }
     input {
-      &:checked + .slider {
-        background-color: #2196F3;
+      &:checked {
+        &+.slider {
+          background-color: var(--color-blue);
+          &::before {
+            transform: translateX(26px);
+          }
+        }
       }
-      &:focus + .slider {
-        box-shadow: 0 0 1px #2196F3;
-      }
-      &:checked + .slider:before {
-        transform: translateX(26px);
+      &:focus {
+        outline: none;
       }
     }
   }

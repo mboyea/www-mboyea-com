@@ -22,6 +22,7 @@
 
 <style lang="scss">
   button.skip-to-content {
+    background-color: var(--color-bg);
     position: absolute;
     transform: translateY(-100%) translateX(-2px);
     border-radius: 0 0 0.5rem 0;
