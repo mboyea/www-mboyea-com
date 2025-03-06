@@ -79,9 +79,6 @@
     &:focus {
       outline: none;
     }
-    & > * {
-      width: 100%;
-    }
   }
   #page-footer {
     flex: 0 0;

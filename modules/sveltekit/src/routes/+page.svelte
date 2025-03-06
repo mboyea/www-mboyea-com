@@ -7,20 +7,6 @@
     <span class="no-break">🔧 Mechanic.</span>
   </p>
 </section>
-<section class="text">
-  <h2> Obediently yours.</h2>
-  <p>
-    My mission is to craft and deliver software that brings <strong>real value</strong> to my clients.
-  </p>
-  <p>
-    It all starts with understanding your unique business needs.
-    I listen closely, then design solutions that focus on the <strong>features you truly need</strong>—the ones that help you <em>scale your business</em> and <em>make a real impact on your users</em>.
-  </p>
-  <p>
-    Have something in mind?
-    <a href="/contact">Contact me</a>!
-  </p>
-</section>
 <section class="banner centered">
   <h2>Resume</h2>
   <iframe class="resume" title="Resume Document Preview" src="/docs/BoyeaMatthewSoftwareEngineer.pdf" frameborder="0"></iframe>
@@ -36,6 +22,20 @@
     <span class="no-break">
       <a class="rowitem" href="https://github.com/mboyea/mdc">View Document Source</a>
     </span>
+  </p>
+</section>
+<section class="text">
+  <h2> Obediently yours.</h2>
+  <p>
+    My mission is to craft and deliver software that brings <strong>real value</strong> to my clients.
+  </p>
+  <p>
+    It all starts with understanding your unique business needs.
+    I listen closely, then design solutions that focus on the <strong>features you truly need</strong>—the ones that help you <em>scale your business</em> and <em>make a real impact on your users</em>.
+  </p>
+  <p>
+    Have something in mind?
+    <a href="/contact">Contact me</a>!
   </p>
 </section>
 
