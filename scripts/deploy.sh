@@ -74,7 +74,7 @@ load_env_files() {
 
 # expects $1 to be the name of the Fly app
 verify_fly_app_created() {
-  if ! flyctl apps list | tail -n +2 | grep -q "^$1"; then
+  if ! flyctl apps list | tail -n +2 | grep -q "^$1 "; then
     flyctl apps create --org "$FLY_ORGANIZATION" --name "$1"
     echo "Created app $1."
   fi
