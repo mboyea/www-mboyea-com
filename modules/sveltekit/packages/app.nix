@@ -12,7 +12,7 @@ in pkgs.buildNpmPackage {
   src = ../.;
   # Generate a new dependency hash using:
   #   prefetch-npm-deps path/to/sveltekit/package-lock.json
-  npmDepsHash = "sha256-yvBEa9Vc0wj3tkrdgVXTt6rqknRpdUVZKpbA2tnDDOI=";
+  npmDepsHash = "sha256-g8ED0uPC2nb49Fd1Ze4MI6P4jf1/1WBOqLmrUAf9Aq4=";
   npmBuildScript = "build";
   installPhase = ''
     mkdir -p "$out/bin" "$out/lib"

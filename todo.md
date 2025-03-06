@@ -15,9 +15,9 @@ default_: todo
 ## Milestones
 
 - [ ] (F) Make `nix run` shutdown database correctly from SIGINT @code
-- [ ] (A) 2024-03-01 Announce release +1.0.0 @docs
-- [ ] (A) 2024-02-28 Complete `modules/sveltekit/src/` @code
-- [ ] (A) 2024-02-25 Complete `modules/postgres/schema/` @code
+- [ ] (A) Announce release +1.0.0 @docs
+- [x] (A) 2024-03-05 Complete draft for `modules/sveltekit/src/` @code
+- [x] (A) 2024-02-25 Complete draft for `modules/postgres/schema/` @code
 - [x] (A) 2024-02-22 Draft `nix run .#deploy` database initialization @code
 - [x] (A) 2024-02-21 Draft `nix run .#start` database initialization @code
 - [x] (A) 2024-02-20 Complete `nix run .#deploy` @code

@@ -1,13 +1,13 @@
 <section id="featured-image">
   <h1>I'm Matthew Boyea.</h1>
-  <p class="text-carousel">
-    <span>👨‍💻 Software Engineer.</span>
-    <span>🥊 Kickboxer.</span>
-    <span>🏋🏼 Weightlifter.</span>
-    <span>🔧 Mechanic.</span>
+  <p class="text-glitch-carousel">
+    <span class="no-break">👨‍💻 Software Engineer.</span>
+    <span class="no-break">🥊 Kickboxer.</span>
+    <span class="no-break">🏋🏼 Weightlifter.</span>
+    <span class="no-break">🔧 Mechanic.</span>
   </p>
 </section>
-<section>
+<section class="text">
   <h2> Obediently yours.</h2>
   <p>
     My mission is to craft and deliver software that brings <strong>real value</strong> to my clients.
@@ -24,65 +24,36 @@
 <section class="banner centered">
   <h2>Resume</h2>
   <iframe class="resume" title="Resume Document Preview" src="/docs/BoyeaMatthewSoftwareEngineer.pdf" frameborder="0"></iframe>
-  <p>
-    <a class="rowitem" href="/docs/BoyeaMatthewSoftwareEngineer.pdf">Open Document</a>
-    |
-    <a class="rowitem" href="/docs/BoyeaMatthewSoftwareEngineer.pdf" download>Download Document</a>
-    |
-    <a class="rowitem" href="https://github.com/mboyea/mdc">View Document Source</a>
-  </p>
-</section>
-<section>
-  <h2>Projects.</h2>
-  <ul>
-    <li>
-      <h3>Lacuna</h3>
-    </li>
-    <li>
-      <h3>LanCouch</h3>
-    </li>
-    <li>
-      <h3>Markdown Converter</h3>
-    </li>
-  </ul>
-</section>
-<section>
-  <h2>Technical Skills.</h2>
-  <p>
-    I work in a broad range of industries including commerce, education, and manufacturing.
-    I'm constantly learning new tools in support of different projects!
-  </p>
-  <p>
-    HTML
-    CSS
-    JavaScript
-    TypeScript
-    React
-    Vue
-    Svelte
-    Solid
-    WebGL
-    GLSL
-    Node
-    Python
-    SQL
-    Java
-    C++
-    C#
-    XML
-    Assembly
-    Docker
-    Fly.io
-    Linux (Ubuntu, Alpine, Arch, NixOS)
-    Bash
-    Makefile
-    Nix
+  <p class="resume-links">
+    <span class="no-break">
+      <a class="rowitem" href="/docs/BoyeaMatthewSoftwareEngineer.pdf">Open Document</a>
+      |
+    </span>
+    <span class="no-break">
+      <a class="rowitem" href="/docs/BoyeaMatthewSoftwareEngineer.pdf" download>Download Document</a>
+      |
+    </span>
+    <span class="no-break">
+      <a class="rowitem" href="https://github.com/mboyea/mdc">View Document Source</a>
+    </span>
   </p>
 </section>
 
 <style lang="scss">
+  section.text {
+    width: min(100%, 54rem);
+  }
   .resume {
     height: 70vh;
     width: min(100%, 120vh);
+  }
+  #featured-image {
+    padding-top: 12vw;
+    padding-bottom: 18vw;
+    text-align: center;
+    border-bottom: 1px solid var(--color-bg-alt);
+    * {
+      color: var(--color-light);
+    }
   }
 </style>
