@@ -1,100 +1,158 @@
-# [www.mboyea.com](https://www.mboyea.com)
+---
+title: www-mboyea-com
+author: [ Matthew T. C. Boyea ]
+lang: en
+subject: website
+keywords: [ nix, docker, podman, image, postgres, svelte, sveltekit, typescript, sass, website, fly, fly.io, server ]
+default_: readme
+---
 
-## A portfolio website to host articles, apps, and games built by Matthew Boyea
+[🌐 www.mboyea.com](https://www.mboyea.com)
 
-This website is built with [SvelteKit], [Sass], & [Typescript] to compile a html/css/js application delivered by a [Node.js] server. [PNPM] manages all dependency packages. [Docker] is used to compile the app into a minified [Ubuntu] environment. [Fly.io] hosts the Docker Image to serve the completed website.
+## A portfolio website for Matthew Boyea
 
-### Install (Windows)
+This website prioritizes *speed*, *clarity*, and *attractiveness*.
+It's supposed to make clients, recruiters, and engineers think "I want to hire this guy to do *my* website."
+Questions? [Read the FAQ](#faq).
 
-* [Install Git Bash](https://git-scm.com/download/win) for deployment scripts & GitHub commits.
-* [Install Node](https://nodejs.org/en/download).
-* [Install PNPM](https://pnpm.io/installation).
-* [Install flyctl](https://fly.io/docs/hands-on/install-flyctl/) for deployments.
-* [Install psql](https://www.timescale.com/blog/how-to-install-psql-on-mac-ubuntu-debian-windows/) for remote SQL deployment.
-* Ensure each of the above command line tools are accessible by PATH.
-* [Clone this repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository) to a directory on your computer. That directory will be referred to as `root`.
-* Open a terminal in `root`.
-* Run `pnpm i` in the terminal to install all remaining app dependencies.
-From here, you can use & edit the app locally on your Windows machine. See ### Run Scripts for more information.
+### Installation
 
-### Install (Arch Linux)
+First, copy the repository.
 
-* Install `nodejs` from pacman.
-* Install `pnpm` from pacman.
-* Install `flyctl-bin` from the AUR.
-* Install `postgresql` from pacman.
-* [Clone this repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository) to a directory on your computer. That directory will be referred to as `root`.
-* Open a terminal in `root`.
-* Run `pnpm i` in the terminal to install all remaining app dependencies.
-From here, you can use & edit the app locally on your Arch Linux machine. See ### Run Scripts for more information.
+- [Clone this repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) from [GitHub](https://github.com/mboyea/www-mboyea-com).
 
-### Install (NixOS)
+Because [Nix (the package manager)] provides all packages, it is the only dependency required to be installed manually.
 
-* Add the `nodejs` `nodePackages.pnpm` `flyctl` `postgresql` packages to NixOS config or Home Manager config.
-* Run `sudo nixos-rebuild switch` `home-manager switch`.
-* [Clone this repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository) to a directory on your computer. That directory will be referred to as `root`.
-* Open a terminal in `root`.
-* Run `pnpm i` in the terminal to install all remaining app dependencies.
-From here, you can use & edit the app locally on your Arch Linux machine. See ### Run Scripts for more information.
+- [Install Nix: the package manager](https://nixos.org/download/).
+- [Enable Nix flakes](https://nixos.wiki/wiki/Flakes).
 
-### Run Scripts
+From here, you can run any of the project [Scripts](#scripts).
 
-To run a script, type `pnpm run <script-name>` into a terminal within the root folder.
+However, you won't have access to the project packages (`npm`, `psql`, `podman`, `flyctl`, etc.) in your PATH by default.
+You probably want those for testing and usage while debugging.
+You can run `nix develop` to open a subshell with these dependencies.
 
-| script-name | description |
-|:----------- |:----------- |
-| `start` | run start:dev |
-| `start:dev` | create a local hot-reloading server at [localhost:5173](http://localhost:5173) to serve source code files |
-| `start:preview` | run build:preview, create a local server at [localhost:4173](http://localhost:4173) to serve built code files |
-| `build:preview` | build app using .env.development |
-| `build:prod` | build app using .env |
-| `deploy` | update app dependencies, run build:prod, run deploy:database, run deploy:secrets, run deploy:server |
-| `deploy:database` | update postgres users, databases, tables, procedures, etc. |
-| `deploy:secrets` | set flyctl secrets from .env file |
-| `deploy:server` | deploy build folder to flyctl |
-| `check` | evaluate Svelte syntax |
-| `check:watch` | re-evaluate Svelte syntax when files are updated |
-| `article` | cli to modify articles in the postgres database; pass -h for more details |
+This works fine, but it's nice to automatically have the software dependencies when you enter into the project directory.
+To do that, we install [direnv](https://direnv.net/).
 
-### Create Secrets
+- [Install direnv](https://direnv.net/docs/installation.html).
+- [Install nix-direnv](https://github.com/nix-community/nix-direnv#installation) (optional).
+- Open a terminal in the project's root directory.
+- Run `direnv allow`
 
-Some features of this app require secret database credentials. These secrets cannot be shared in public.
+Now you don't have to type `nix develop`; all the packages are automatically provided when your shell enters into the project directory.
 
-* Obtain the secrets.
-* Create a file named `.env` in the root directory.
-* Copy the secrets into the `.env` file.
+### Usage
 
+Be sure to [read the license](./LICENSE.md).
+
+#### Scripts
+
+Scripts can be run from within any of the project directories.
+
+| Command | Description |
+|:--- |:--- |
+| `nix run` | Alias for `nix run .#start dev` |
+| `nix run .#[SCRIPT] ...` | Run a script |
+| `nix run .#[SCRIPT] help` | Print usage information about a script |
+| `nix develop` | Start a subshell with the software dependencies installed |
+
+| SCRIPT | Description |
+|:--- |:--- |
+| `help` | Print this helpful information |
+| `start` | Start the app locally |
+| `deploy` | Deploy the app to Fly.io |
+
+**Note:** Currently you cannot run scripts that use `podman` to create a container while offline. For more information, see [github.com/containers/podman/issues/23566](https://github.com/containers/podman/issues/23566).
+
+#### Deployment (Fly.io)
+
+You'll need to be signed into a [Fly.io] account to deploy.
+
+- [Make a Fly.io account](https://fly.io/dashboard).
+  Link your payment method in the account.
+- Run `flyctl auth login`
+
+Secret deployment credentials will be stored in the file `.env`.
+The contents of this file can never be revealed publicly, so be careful to only share its contents with other developers.
+
+- Create a file named `.env` in the root directory.
+- Add to `.env`:
   ```sh
-  PG_URL="postgres://postgres:AAAAAAAAAAAAAAA@db-name.flycast:5432/mboyea_main"
-  PG_USERNAME="postgres"
-  PG_PASSWORD="AAAAAAAAAAAAAAA"
+  FLY_APP_NAME="<unique_app_name>"
+  FLY_DB_NAME="<unique_app_name>"
+  POSTGRES_PASSWORD="<unique_password>"
+  POSTGRES_WEBSERVER_PASSWORD="<unique_password>"
   ```
+- Run `nix run .#deploy all`
 
-* Repeat for file named `.env.development`.
+The application will perform its first deployment.
+It may hang while deploying the webserver for the first time, but this is just a byproduct of waiting for Fly to initialize the application.
+With patience, your server should deploy and you can visit the app online!
 
-  ```sh
-  PG_URL="postgres://postgres:AAAAAAAAAAAAAAA@127.0.0.1:5432/mboyea_main"
-  PG_USERNAME="postgres"
-  PG_PASSWORD="AAAAAAAAAAAAAAA"
-  ```
+You can re-deploy after making changes to the database, server, or secrets with the same `.#deploy` command.
 
-### Deploy
+- `nix run .#deploy all`
+- `nix run .#deploy secrets`
+- `nix run .#deploy database webserver`
 
-* Install Dependencies.
-* Create Secrets.
-* Open a terminal in the root folder.
-* Run `pnpm run deploy`.
-* If postgres access is denied: check .env password; check .env host; check port 5432 is free (use `netstat -ano | findstr :5432`)
+**If you ever modify the design of an existing database table, you must manually convert the old table before redeploying.**
+It is recommended that you first test the conversion process on a fake database using `nix run .#start prod` and `psql -h localhost -U postgres`.
 
-### Contribute
+- Run `flyctl postgres connect --user postgres --password <unique_password>`
+- Modify the old table using [ALTER TABLE](https://www.postgresql.org/docs/current/sql-altertable.html).
 
-Unfortunately, this project doesn't support community contributions right now. Feel free to fork, but be sure to [read the license](./LICENSE.md).
+After initial deployment, you can use [flyctl](https://fly.io/docs/flyctl/) to manage your deployed servers.
+Or visit [fly.io/dashboard](https://fly.io/dashboard).
 
-[SvelteKit]: https://kit.svelte.dev/docs/introduction
-[Typescript]: https://www.typescriptlang.org/why-create-typescript
-[Sass]: https://sass-lang.com/guide
-[Node.js]: https://nodejs.org/en/docs/guides/getting-started-guide
+## FAQ
+
+### How does it work?
+
+[Nix (the package manager)] uses [declarative scripting](https://en.wikipedia.org/wiki/Declarative_programming) to:
+
+- Install and lock required dependencies reproducibly.
+- Compile source code into production packages.
+- Containerize production packages into [Docker] images.
+- Expose the required packages, images, and dependencies to shell scripts that test and deploy the packages.
+- Expose the environment and scripts to the developer.
+
+Source code for the web server is in `modules/sveltekit/`.
+[SvelteKit] is used to build a [Node.js] server, making use of [Sass] for superior CSS features and [TypeScript] for type security in both the front-end and back-end of the server.
+Nix packages a Docker image with this webserver inside.
+
+Source code for the database is in `modules/postgres/`.
+[Postgres] is used to provide a SQL database that best supports concurrency at scale.
+
+Source code for deployment is in `modules/fly/`.
+[Fly.io] is used as a hosting provider for the webserver Docker image and the Postgres database.
+Fly natively supports concurrent Postgres instances, and provides some [convenient CLI tools](https://fly.io/docs/flyctl/postgres/) for database management.
+It also allows the webserver to connect to the database over an internal network, so the Postgres database doesn't have to be exposed to the internet.
+These features make Fly an ideal hosting provider for performance and security.
+If I ever decided that Fly was an inferior hosting option, it would be no problem to migrate from their service to another, because you can run Docker containers pretty much anywhere.
+Hooray for avoiding [vendor lock-in](https://en.wikipedia.org/wiki/Vendor_lock-in)!
+
+Scripts are defined in `scripts/` and their dependencies are declared in `flake.nix`.
+Scripts are used to run development environments and deploy the application.
+Because scripts consume packages provided by `flake.nix`, if you want to run them directly (like `./scripts/start.sh dev`) you must use `nix develop` or `direnv allow`.
+
+### How to contribute?
+
+Unfortunately, this project doesn't support code contributions from the community right now.
+However, you are free to [post Issues](https://github.com/mboyea/www-mboyea-com/issues) in this repository.
+
+I am not currently receiving donations.
+There is no way to fund my projects at this time, but if enough interest is generated, a process for donations will be provided.
+
+Feel free to fork, just be sure to [read the license](./LICENSE.md).
+
+[Nix (the package manager)]: https://nixos.org/
 [Docker]: https://docs.docker.com/get-started/overview/
-[Ubuntu]: https://ubuntu.com/about
-[PNPM]: https://pnpm.io/motivation
+[SvelteKit]: https://kit.svelte.dev/docs/introduction
+[Node.js]: https://nodejs.org/en/docs/guides/getting-started-guide
+[Vue]: https://vuejs.org/
+[Angular]: https://angularjs.org/
+[Sass]: https://sass-lang.com/guide
+[Typescript]: https://www.typescriptlang.org/why-create-typescript
+[Postgres]: https://www.postgresql.org/
 [Fly.io]: https://fly.io/docs/
