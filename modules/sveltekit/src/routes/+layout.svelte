@@ -59,7 +59,7 @@
 
 <style lang="scss">
   :global(html, body) {
-    height: 100%;
+    height: max(100%, 100vh);
   }
   :global(body) {
     display: flex;

@@ -9,14 +9,14 @@
 </section>
 <section class="banner centered">
   <h2>Resume</h2>
-  <iframe class="resume" title="Resume Document Preview" src="/docs/BoyeaMatthewSoftwareEngineer.pdf" frameborder="0"></iframe>
+  <iframe class="resume" title="Resume Document Preview" src="/docs/Boyea.Matthew.Resume.pdf" frameborder="0"></iframe>
   <p class="resume-links">
     <span class="no-break">
-      <a class="rowitem" href="/docs/BoyeaMatthewSoftwareEngineer.pdf">Open Document</a>
+      <a class="rowitem" href="/docs/Boyea.Matthew.Resume.pdf">Open Document</a>
       |
     </span>
     <span class="no-break">
-      <a class="rowitem" href="/docs/BoyeaMatthewSoftwareEngineer.pdf" download>Download Document</a>
+      <a class="rowitem" href="/docs/Boyea.Matthew.Resume.pdf" download>Download Document</a>
       |
     </span>
     <span class="no-break">
